@@ -3,14 +3,21 @@
 require('./globals');
 require('./setup-qcloud-sdk');
 
-const http = require('http');
+const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const config = require('./config');
 const db = require('./models/DB');
-const app = express();
+var fs = require('fs');
+var key = fs.readFileSync('./2_64078752.jinjinyoga.net.key');
+var cert = fs.readFileSync('./1_64078752.jinjinyoga.net_bundle.crt');
+var https_options = {
+    key: key,
+    cert: cert
+};
 
+const app = express();
 app.set('query parser', 'simple');
 app.set('case sensitive routing', true);
 app.set('jsonp callback name', 'callback');
@@ -35,7 +42,13 @@ process.on('uncaughtException', error => {
     console.log(error);
 });
 
-app.get('/booking',function(req,res){
+app.get('/yoga/course/view',function(req,res){
+   console.log(db.user);
+   console.log(db.user.id);
+   res.end("test");
+})
+
+app.get('/yoga/course/book',function(req,res){
    console.log(db.user);
    console.log(db.user.id);
    res.end("test");
@@ -67,13 +80,19 @@ app.get('/yoga/user/view', (req, res) => {
   })
 })
 
+app.get('/yoga/wx/user/view', (req, res) => {
+  db.user.findAll().then(function(users) {
+    res.end(JSON.stringify(users));
+  })
+})
+
 // 启动server
 //http.createServer(app).listen(config.port, () => {
  //   console.log('Express server listening on port: %s', config.port);
 //});
 
 db.sequelize.sync().then(function(){
-	http.createServer(app).listen(config.port, () => {
+	https.createServer(https_options,app).listen(config.port, () => {
 	   console.log('Express server listening on port: %s', config.port);
 	});
   }
