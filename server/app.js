@@ -88,6 +88,7 @@ app.get('/yoga/wx/user/view', (req, res) => {
 })
 
 app.get('/yoga/wx/user/add', (req, res) => {
+    console.log(util);
     var data = util.decryptData(req.encryptedData,req.iv,req.sessionId);
     var newUser = {
         wechat_name:data.nickName,
