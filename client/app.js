@@ -12,7 +12,10 @@ App({
         success: function () {
           wx.getUserInfo({
             success: function (res) {
+              console.log(res);
               that.globalData.userInfo = res.userInfo;
+              that.globalData.userInfo.encryptedData = res.encryptedData;
+              that.globalData.userInfo.iv = res.iv;
               typeof cb == "function" && cb(that.globalData.userInfo)
             }
           })

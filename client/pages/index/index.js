@@ -34,6 +34,27 @@ Page({
     })
   },
 
+  addCurrentUser: function(){
+    var that = this;
+    wx.request({
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/add', //仅为示例，并非真实的接口地址
+      data: {
+        encryptedData: that.data.userInfo.encryptedData,
+        iv: that.data.userInfo.iv
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          users: res.data
+        });
+        console.log(that.data.users);
+      }
+    })
+  },
+
   onLoad: function () {
     console.log('onLoad')
     var that = this
@@ -43,8 +64,10 @@ Page({
       that.setData({
         userInfo:userInfo
       })
+      console.log(that.data.userInfo);
     });
 
     that.retrieveCouse();
+    that.addCurrentUser();
   }
 })

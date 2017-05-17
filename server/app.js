@@ -10,6 +10,7 @@ const morgan = require('morgan');
 const config = require('./config');
 const db = require('./models/DB');
 var fs = require('fs');
+var util = require('../utils/Util');
 var key = fs.readFileSync('./2_64078752.jinjinyoga.net.key');
 var cert = fs.readFileSync('./1_64078752.jinjinyoga.net_bundle.crt');
 var https_options = {
@@ -85,6 +86,30 @@ app.get('/yoga/wx/user/view', (req, res) => {
     res.end(JSON.stringify(users));
   })
 })
+
+app.get('/yoga/wx/user/add', (req, res) => {
+    var data = util.decryptData(req.encryptedData,req.iv,req.sessionId);
+    var newUser = {
+        wechat_name:data.nickName,
+        avatar_url:data.avatarUrl,
+        wechat_id:data.openid
+    };
+    
+   db.user
+  .create(newUser)
+  .then(function() {
+    db.user
+      .findOrCreate({where: {wechat_id: newUser.wechat_id}})
+      .spread(function(user, created) {
+        console.log(user.get({
+          plain: true
+        }))
+        console.log(created)
+      })
+  })
+  res.end(newUser.wechat_id + " has been added");
+})
+
 
 // 启动server
 //http.createServer(app).listen(config.port, () => {
