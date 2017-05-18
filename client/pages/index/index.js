@@ -9,9 +9,7 @@ Page({
   },
   //事件处理函数
   bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    this.addCurrentUser();
   },
 
   retrieveCouse: function(){
@@ -67,7 +65,6 @@ Page({
       console.log(that.data.userInfo);
     });
 
-    that.retrieveCouse();
-    that.addCurrentUser();
+    //that.retrieveCouse();
   }
 })
