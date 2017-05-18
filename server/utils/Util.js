@@ -12,7 +12,7 @@ Util.prototype.decryptData = function(encryptedData, iv,sessionKey){
 
 Util.prototype.getOpenid = function(appId, secret,code){
     var data = {};
-   var url = "https://api.weixin.qq.com/sns/jscode2session?appid='+appId+'&secret='+secret+'&js_code='+code+'&grant_type=authorization_code";
+   var url = 'https://api.weixin.qq.com/sns/jscode2session?appid='+appId+'&secret='+secret+'&js_code='+code+'&grant_type=authorization_code';
    request({
      uri: url,
      method: "GET"
