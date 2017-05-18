@@ -8,7 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const config = require('./config');
-const db = require('./models/DB');
+var db = require('./models/DB');
 var fs = require('fs');
 var Util = require('./utils/Util');
 var util = new Util();
@@ -97,22 +97,18 @@ app.post('/yoga/wx/user/add', (req, res) => {
             avatar_url:userInfo.avatarUrl,
             wechat_id:data.openid
         };
-        
-       db.user
-      .create(newUser)
-      .then(function() {
-        db.user
-          .findOrCreate({where: {wechat_id: newUser.openid}})
-          .spread(function(user, created) {
-            console.log(user.get({
-              plain: true
-            }))
-            console.log(created)
-          })
-      })
-      res.end(newUser.wechat_id + " has been added");
+        var dd = new db();
+        dd.updateOrCreate(db.user,{where: {wechat_id: newUser.wechat_id}},newUser,
+            function(){
+                res.end(newUser.wechat_id + " has been added")
+            },
+            function(){
+                res.end(newUser.wechat_id + " has been updated")
+            },
+            function(err){
+                res.end(err)
+            });
     });
-    
 })
 
 
