@@ -40,6 +40,7 @@ Page({
       data: {
         userInfo: that.data.userInfo
       },
+      method:'POST',
       header: {
         'Content-Type': 'application/json'
       },
