@@ -91,26 +91,28 @@ app.get('/yoga/wx/user/view', (req, res) => {
 app.post('/yoga/wx/user/add', (req, res) => {
     console.log(req.body);
     var userInfo = req.body.userInfo;
-    var data = util.getOpenid(config.appId,config.appSecret,userInfo.code);
-    var newUser = {
-        wechat_name:userInfo.nickName,
-        avatar_url:userInfo.avatarUrl,
-        wechat_id:data.openid
-    };
-    
-   db.user
-  .create(newUser)
-  .then(function() {
-    db.user
-      .findOrCreate({where: {wechat_id: newUser.wechat_id}})
-      .spread(function(user, created) {
-        console.log(user.get({
-          plain: true
-        }))
-        console.log(created)
+    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
+        var newUser = {
+            wechat_name:userInfo.nickName,
+            avatar_url:userInfo.avatarUrl,
+            wechat_id:data.openid
+        };
+        
+       db.user
+      .create(newUser)
+      .then(function() {
+        db.user
+          .findOrCreate({where: {wechat_id: newUser.openid}})
+          .spread(function(user, created) {
+            console.log(user.get({
+              plain: true
+            }))
+            console.log(created)
+          })
       })
-  })
-  res.end(newUser.wechat_id + " has been added");
+      res.end(newUser.wechat_id + " has been added");
+    });
+    
 })
 
 

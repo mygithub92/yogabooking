@@ -7,11 +7,6 @@ Page({
     users:[],
     userInfo: {}
   },
-  //事件处理函数
-  bindViewTap: function() {
-    this.addCurrentUser();
-  },
-
 
   retrieveCouse: function(){
     var that = this;
@@ -33,7 +28,7 @@ Page({
     })
   },
 
-  addCurrentUser: function(){
+  bindViewTap: function(){
     var that = this;
     wx.request({
       url: 'https://64078752.jinjinyoga.net/yoga/wx/user/add', //仅为示例，并非真实的接口地址

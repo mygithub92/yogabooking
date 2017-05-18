@@ -10,10 +10,8 @@ App({
       //调用登录接口
       wx.login({
         success: function (e) {
-          console.log(e);
           wx.getUserInfo({
             success: function (res) {
-              console.log(res);
               that.globalData.userInfo = res.userInfo;
               that.globalData.userInfo.encryptedData = res.encryptedData;
               that.globalData.userInfo.iv = res.iv;

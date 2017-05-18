@@ -1,4 +1,4 @@
-var request = require("request");
+var request = require('request-promise');
 
 var WXBizDataCrypt = require('./WXBizDataCrypt')
 
@@ -10,18 +10,20 @@ Util.prototype.decryptData = function(encryptedData, iv,sessionKey){
     return data;
 }
 
-Util.prototype.getOpenid = function(appId, secret,code){
-   var data = {};
+Util.prototype.authencate = function(appId, secret,code,callback){
    var url = 'https://api.weixin.qq.com/sns/jscode2session?appid='+appId+'&secret='+secret+'&js_code='+code+'&grant_type=authorization_code';
-   request({
-     uri: url,
-     method: "GET"
-    }, 
-    function(error, response, body) {
-       data.sessionKey = body.session_key;
-       data.opendid = body.openid
-    });
-    return data;
+    
+    
+   request(url)
+       .then(function(body) {
+            var result = JSON.parse(body);
+            if(result.errcode !== 40163){
+                callback.call(this,result);
+            }
+        })
+       .catch(function(err) {
+            console.log(err);
+        })
 }
 
 
