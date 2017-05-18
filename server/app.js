@@ -97,8 +97,8 @@ app.post('/yoga/wx/user/add', (req, res) => {
             avatar_url:userInfo.avatarUrl,
             wechat_id:data.openid
         };
-        var dd = new db();
-        dd.updateOrCreate(db.user,{where: {wechat_id: newUser.wechat_id}},newUser,
+        console.log(db.updateOrCreate);
+        db.updateOrCreate(db.user,{where: {wechat_id: newUser.wechat_id}},newUser,
             function(){
                 res.end(newUser.wechat_id + " has been added")
             },
@@ -106,7 +106,8 @@ app.post('/yoga/wx/user/add', (req, res) => {
                 res.end(newUser.wechat_id + " has been updated")
             },
             function(err){
-                res.end(err)
+                console.log(err);
+                res.end('err')
             });
     });
 })

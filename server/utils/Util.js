@@ -13,7 +13,6 @@ Util.prototype.decryptData = function(encryptedData, iv,sessionKey){
 Util.prototype.authencate = function(appId, secret,code,callback){
    var url = 'https://api.weixin.qq.com/sns/jscode2session?appid='+appId+'&secret='+secret+'&js_code='+code+'&grant_type=authorization_code';
     
-    
    request(url)
        .then(function(body) {
             var result = JSON.parse(body);

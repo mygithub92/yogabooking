@@ -1,8 +1,9 @@
+const config = require('../config');
 const Sequelize = require('sequelize');
 
-var sequelize = new Sequelize('yoga_booking1', 'root', 'BBBBBBHHINci1z', {
-    host: '10.66.227.99',
-    port: 3306,
+var sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
+    host: config.db.host,
+    port: config.db.port,
     dialect: 'mysql',
 	pool: {
 		max: 5,
@@ -20,7 +21,25 @@ sequelize
     console.log('Unable to connect to the database:', err);
   });
 
-function db(){};
+var db = {
+    updateOrCreate: function(model, where, newItem, onCreate, onUpdate, onError) {
+    // First try to find the record
+    model.findOne({where: where}).then(function (foundItem) {
+        if (!foundItem) {
+            // Item not found, create a new one
+            model.create(newItem)
+                .then(onCreate)
+                .catch(onError);
+        } else {
+            // Found an item, update it
+            model.update(newItem, {where: where})
+                .then(onUpdate)
+                .catch(onError);
+            ;
+        }
+    }).catch(onError);
+    }
+};
 
 db.user = sequelize.import(__dirname + "/user");
 db.address = sequelize.import(__dirname + "/address")
@@ -39,24 +58,6 @@ db.booking.belongsTo(db.user);
 db.booking.belongsTo(db.course);
 
 db.sequelize = sequelize;
-
-db.prototype.updateOrCreate = function(model, where, newItem, onCreate, onUpdate, onError) {
-    // First try to find the record
-    model.findOne({where: where}).then(function (foundItem) {
-        if (!foundItem) {
-            // Item not found, create a new one
-            model.create(newItem)
-                .then(onCreate)
-                .catch(onError);
-        } else {
-            // Found an item, update it
-            model.update(newItem, {where: where})
-                .then(onUpdate)
-                .catch(onError);
-            ;
-        }
-    }).catch(onError);
-}
 
 module.exports = db;
 
