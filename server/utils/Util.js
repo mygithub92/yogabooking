@@ -17,7 +17,7 @@ Util.prototype.getOpenid = function(appId, secret,code){
      uri: url,
      method: "GET"
     }, function(error, response, body) {
-       console.log(body);
+       console.log("***************************************************");
        console.log(response);
        data.sessionKey = "session_key";
        data.opendid = "openid"
