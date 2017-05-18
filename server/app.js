@@ -88,7 +88,7 @@ app.get('/yoga/wx/user/view', (req, res) => {
   })
 })
 
-app.get('/yoga/wx/user/add', (req, res) => {
+app.post('/yoga/wx/user/add', (req, res) => {
     console.log(res);
     console.log(res.body);
     var data = util.getOpenid(config.appId,config.appSecret,req.code);
