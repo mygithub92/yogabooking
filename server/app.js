@@ -89,13 +89,13 @@ app.get('/yoga/wx/user/view', (req, res) => {
 })
 
 app.post('/yoga/wx/user/add', (req, res) => {
-    //console.log(res.body);
-    var userInfo = res.body.userInfo;
+    console.log(req.body);
+    var userInfo = req.body.userInfo;
     var data = util.getOpenid(config.appId,config.appSecret,userInfo.code);
     var newUser = {
         wechat_name:userInfo.nickName,
         avatar_url:userInfo.avatarUrl,
-        wechat_id:userInfo.openid
+        wechat_id:data.openid
     };
     
    db.user
