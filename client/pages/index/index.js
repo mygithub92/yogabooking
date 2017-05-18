@@ -12,6 +12,7 @@ Page({
     this.addCurrentUser();
   },
 
+
   retrieveCouse: function(){
     var that = this;
     wx.request({ 
@@ -37,8 +38,7 @@ Page({
     wx.request({
       url: 'https://64078752.jinjinyoga.net/yoga/wx/user/add', //仅为示例，并非真实的接口地址
       data: {
-        encryptedData: that.data.userInfo.encryptedData,
-        iv: that.data.userInfo.iv
+        userInfo: that.data.userInfo
       },
       header: {
         'Content-Type': 'application/json'
