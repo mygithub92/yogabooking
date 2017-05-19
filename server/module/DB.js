@@ -23,21 +23,31 @@ sequelize
 
 var db = {
     updateOrCreate: function(model, where, newItem, onCreate, onUpdate, onError) {
-    // First try to find the record
-    model.findOne({where: where}).then(function (foundItem) {
-        if (!foundItem) {
-            // Item not found, create a new one
-            model.create(newItem)
-                .then(onCreate)
-                .catch(onError);
-        } else {
-            // Found an item, update it
-            model.update(newItem, {where: where})
-                .then(onUpdate)
-                .catch(onError);
-            ;
-        }
-    }).catch(onError);
+        // First try to find the record
+        model.findOne({where: where}).then(function (foundItem) {
+            if (!foundItem) {
+                // Item not found, create a new one
+                model.create(newItem)
+                    .then(onCreate)
+                    .catch(onError);
+            } else {
+                // Found an item, update it
+                model.update(newItem, {where: where})
+                    .then(onUpdate)
+                    .catch(onError);
+                ;
+            }
+        }).catch(onError);
+    },
+    create: function(model, where, newItem, onCreate, onError) {
+        onError = onError || function(err){console.log(err)};
+        model.findOne({where: where}).then(function (foundItem) {
+            if (!foundItem) {
+                model.create(newItem)
+                    .then(onCreate)
+                    .catch(onError);
+            }
+        }).catch(onError);
     }
 };
 
