@@ -4,28 +4,7 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
-    courses: [],
     addresses:[]
-  },
-
-  retrieveCouse: function(){
-    var that = this;
-    wx.request({ 
-      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/view',
-      data: {
-        nickName: that.data.userInfo.nickName
-      },
-      header: {
-          'Content-Type': 'application/json'
-      },
-      success: function(res) {
-          console.log(res.data);
-          that.setData({
-             users:res.data
-          });
-          console.log(that.data.users);
-      }
-    })
   },
 
   retrieveAddress: function(){
@@ -45,24 +24,8 @@ Page({
   },
 
 
-  bindViewTap: function(){
-    var that = this;
-    wx.request({
-      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/add', 
-      data: {
-        userInfo: that.data.userInfo
-      },
-      method:'POST',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (res) {
-        console.log(res.data);
-        that.setData({
-          users: res.data
-        });
-      }
-    })
+  stepInto: function(e){
+    wx.navigateTo({ url: '../course/course?addressId=' + e.currentTarget.id });
   },
 
   onLoad: function () {

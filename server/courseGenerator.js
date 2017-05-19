@@ -33,6 +33,7 @@ var dayInMillisecond = 86400000;
     }else{
         var coach = {id:1,name:'Jin Jin',level:7}
         var address = {id:1,address:'68 Lascelles Avenue Warradale SA'}
+        var address1 = {id:2,address:'38 Capella Dr, Hallett Cove SA'}
 
        db.create(db.coach,{id: coach.id},coach,
             function(){
@@ -42,6 +43,10 @@ var dayInMillisecond = 86400000;
        db.create(db.address,{id: address.id},address,
             function(){
                 console.log("Address " + address.address + " has been added")
+            });
+        db.create(db.address1,{id: address1.id},address1,
+            function(){
+                console.log("Address " + address1.address + " has been added")
             });
         
         var current = moment();

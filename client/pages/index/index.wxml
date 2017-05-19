@@ -6,7 +6,9 @@
   </view>
 
   <view wx:for="{{addresses}}" wx:key="{{item.id}}">
-    <text class="user-motto">{{item.address}}</text>
-  </view>
+    <view  bindtap="stepInto" id="{{item.id}}">
+      <text class="user-motto">{{item.address}}</text>
+    </view>
+ </view>
  
 </view>
