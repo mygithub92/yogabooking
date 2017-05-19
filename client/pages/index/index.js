@@ -3,15 +3,15 @@
 var app = getApp()
 Page({
   data: {
+    userInfo: {},
     courses: [],
-    users:[],
-    userInfo: {}
+    addresses:[]
   },
 
   retrieveCouse: function(){
     var that = this;
     wx.request({ 
-      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/view', //仅为示例，并非真实的接口地址
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/view',
       data: {
         nickName: that.data.userInfo.nickName
       },
@@ -27,22 +27,23 @@ Page({
       }
     })
   },
-  addCoach: function(){
-    wx.request({
-      url: 'https://64078752.jinjinyoga.net/yoga/manage/coach/add', 
-      success: function (res) {
-        console.log(res.data);
+
+  retrieveAddress: function(){
+    var that = this;
+    wx.request({ 
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/address/retrieve', 
+      header: {
+          'Content-Type': 'application/json'
+      },
+      success: function(res) {
+          console.log(res.data);
+          that.setData({
+             addresses:res.data
+          });
       }
     })
   },
-  addAddress: function(){
-    wx.request({
-      url: 'https://64078752.jinjinyoga.net/yoga/manage/address/add', 
-      success: function (res) {
-        console.log(res.data);
-      }
-    })
-  },
+
 
   bindViewTap: function(){
     var that = this;
@@ -76,6 +77,6 @@ Page({
       console.log(that.data.userInfo);
     });
 
-    //that.retrieveCouse();
+    that.retrieveAddress();
   }
 })

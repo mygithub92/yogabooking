@@ -44,48 +44,22 @@ process.on('uncaughtException', error => {
     console.log(error);
 });
 
-app.get('/yoga/course/view',function(req,res){
-   console.log(db.user);
-   console.log(db.user.id);
-   res.end("test");
-})
-
-app.get('/yoga/course/book',function(req,res){
-   console.log(db.user);
-   console.log(db.user.id);
-   res.end("test");
-})
-
 app.get('/yoga/user',function(req,res){
 	res.sendFile(__dirname + '/user.html');
 })
 
-app.post('/yoga/user/add',function(req,res){
-  db.user
-  .create(req.body)
-  .then(function() {
-    db.user
-      .findOrCreate({where: {wechat_id: req.body.wechat_id}})
-      .spread(function(user, created) {
-        console.log(user.get({
-          plain: true
-        }))
-        console.log(created)
-      })
-  })
-  res.end(req.body.full_name + " has been added");
+app.get('/yoga/wx/course/retrieve',(req,res) => {
+    console.log(req);
+    db.course.findAll({addressId:req.data.addressId}).then(result => {
+        res.end(JSON.stringify(result));
+    })
 })
 
-app.get('/yoga/user/view', (req, res) => {
-  db.user.findAll().then(function(users) {
-    res.render('users.ejs', {users: users})
-  })
-})
-
-app.get('/yoga/wx/user/view', (req, res) => {
-  db.user.findAll().then(function(users) {
-    res.end(JSON.stringify(users));
-  })
+app.get('/yoga/wx/address/retrieve',(req,res) => {
+    console.log(req);
+    db.address.findAll().then(result => {
+        res.end(JSON.stringify(result));
+    })
 })
 
 app.post('/yoga/wx/user/add', (req, res) => {
@@ -97,12 +71,9 @@ app.post('/yoga/wx/user/add', (req, res) => {
             avatar_url:userInfo.avatarUrl,
             wechat_id:data.openid
         };
-        db.updateOrCreate(db.user,{wechat_id: newUser.wechat_id},newUser,
+        db.create(db.user,{wechat_id: newUser.wechat_id},newUser,
             function(){
                 res.end(newUser.wechat_id + " has been added")
-            },
-            function(){
-                res.end(newUser.wechat_id + " has been updated")
             },
             function(err){
                 console.log(err);
@@ -111,48 +82,6 @@ app.post('/yoga/wx/user/add', (req, res) => {
     });
 })
 
-app.get('/yoga/manage/coach/add', (req, res) => {
-    var coach = {
-        id:1,
-        name:'Jin Jin',
-        level:7
-        
-    }
-    
-   db.create(db.coach,{id: coach.id},coach,
-        function(){
-            res.end("Coach " + coach.name + " has been added")
-        },
-       
-        function(err){
-            console.log(err);
-            res.end('err')
-    });
-})
-
-app.get('/yoga/manage/address/add', (req, res) => {
-    var address = {
-        id:1,
-        address:'68 Lascelles Avenue Warradale SA'
-        
-    }
-    
-   db.create(db.address,{id: address.id},address,
-        function(){
-            res.end("Address " + address.address + " has been added")
-        },
-       
-        function(err){
-            console.log(err);
-            res.end('err')
-    });
-})
-
-
-// 启动server
-//http.createServer(app).listen(config.port, () => {
- //   console.log('Express server listening on port: %s', config.port);
-//});
 
 db.sequelize.sync().then(function(){
 	https.createServer(https_options,app).listen(config.port, () => {

@@ -41,7 +41,7 @@ var db = {
     },
     create: function(model, where, newItem, onCreate, onError) {
         onError = onError || function(err){console.log(err)};
-        model.findOne({where: {date:'2017-05-19'}}).then(function (foundItem) {
+        model.findOne({where: where}).then(function (foundItem) {
             if (!foundItem) {
                 model.create(newItem)
                     .then(onCreate)
