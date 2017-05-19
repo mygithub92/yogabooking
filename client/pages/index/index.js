@@ -27,11 +27,27 @@ Page({
       }
     })
   },
+  addCoach: function(){
+    wx.request({
+      url: 'https://64078752.jinjinyoga.net/yoga/manage/coach/add', 
+      success: function (res) {
+        console.log(res.data);
+      }
+    })
+  },
+  addAddress: function(){
+    wx.request({
+      url: 'https://64078752.jinjinyoga.net/yoga/manage/address/add', 
+      success: function (res) {
+        console.log(res.data);
+      }
+    })
+  },
 
   bindViewTap: function(){
     var that = this;
     wx.request({
-      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/add', //仅为示例，并非真实的接口地址
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/user/add', 
       data: {
         userInfo: that.data.userInfo
       },
@@ -44,7 +60,6 @@ Page({
         that.setData({
           users: res.data
         });
-        console.log(that.data.users);
       }
     })
   },

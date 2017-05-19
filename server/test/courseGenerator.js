@@ -12,7 +12,7 @@ var dayInMillisecond = 86400000;
 		var current = moment();
 		console.log('Starting creating course for date: ' + current.format('YYYY-MM-DD'));
 		var dow = current.day();
-		if(validDays.includes(dow)){
+		if(validDays.indexOf(dow) > -1){
 			var courses = [];
 			for (i = 0; i < validPeriods[dow].length; i++) {
 				var period = validPeriods[dow][i];

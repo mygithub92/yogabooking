@@ -5,7 +5,15 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
 
+  <view  bindtap="addAddress" class="userinfo">
+    <text class="userinfo-nickname">Add Address</text>
+  </view>
+  <view  bindtap="addCoach" class="userinfo">
+    <text class="userinfo-nickname">Add Coach</text>
+  </view>
+
   <view wx:for="{{users}}" wx:key="{{item.id}}">
     <text class="user-motto">{{item.full_name}}</text>
   </view>
+ 
 </view>

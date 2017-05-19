@@ -97,7 +97,6 @@ app.post('/yoga/wx/user/add', (req, res) => {
             avatar_url:userInfo.avatarUrl,
             wechat_id:data.openid
         };
-        console.log(db.updateOrCreate);
         db.updateOrCreate(db.user,{wechat_id: newUser.wechat_id},newUser,
             function(){
                 res.end(newUser.wechat_id + " has been added")
@@ -109,6 +108,43 @@ app.post('/yoga/wx/user/add', (req, res) => {
                 console.log(err);
                 res.end('err')
             });
+    });
+})
+
+app.post('/yoga/manage/coach/add', (req, res) => {
+    var coach = {
+        id:1,
+        name:'Jin Jin',
+        level:7
+        
+    }
+    
+   db.create(db.coach,{id: coach.id},coach,
+        function(){
+            res.end("Coach " + coach.name + " has been added")
+        },
+       
+        function(err){
+            console.log(err);
+            res.end('err')
+    });
+})
+
+app.post('/yoga/manage/address/add', (req, res) => {
+    var address = {
+        id:1,
+        address:'68 Lascelles Avenue Warradale SA'
+        
+    }
+    
+   db.create(db.address,{id: coach.id},address,
+        function(){
+            res.end("Address " + address.address + " has been added")
+        },
+       
+        function(err){
+            console.log(err);
+            res.end('err')
     });
 })
 
