@@ -20,12 +20,14 @@ var dayInMillisecond = 86400000;
 		if(validDays.indexOf(dow) > -1){
 			for (i = 0; i < validPeriods[dow].length; i++) {
 				var period = validPeriods[dow][i];
-				var course = {date:current.format('YYYY-MM-DD'),start_time:period.start,end_time:period.end,spot_number:period.spotNumber,coachId:coachId,addressId:addressId}
+				var newCourse = {date:current.format('YYYY-MM-DD'),start_time:period.start,end_time:period.end,spot_number:period.spotNumber,coachId:coachId,addressId:addressId}
                 
-                db.create(db.course,{date: course.date,start_time:course.start_time,end_time:course.end_time},course,function(){
-                    console.log(course + "has been created");
+                db.create(db.course,{date: newCourse.date,start_time:newCourse.start_time,end_time:newCourse.end_time},newCourse,function(){
+                    console.log("**********************************");
+                    console.log(newCourse);
+                    console.log(" has been created");
+                    console.log("**********************************");
                 })
-		        console.log(course);
 			}
 		}
 	},3000);

@@ -111,7 +111,7 @@ app.post('/yoga/wx/user/add', (req, res) => {
     });
 })
 
-app.post('/yoga/manage/coach/add', (req, res) => {
+app.get('/yoga/manage/coach/add', (req, res) => {
     var coach = {
         id:1,
         name:'Jin Jin',
@@ -130,14 +130,14 @@ app.post('/yoga/manage/coach/add', (req, res) => {
     });
 })
 
-app.post('/yoga/manage/address/add', (req, res) => {
+app.get('/yoga/manage/address/add', (req, res) => {
     var address = {
         id:1,
         address:'68 Lascelles Avenue Warradale SA'
         
     }
     
-   db.create(db.address,{id: coach.id},address,
+   db.create(db.address,{id: address.id},address,
         function(){
             res.end("Address " + address.address + " has been added")
         },

@@ -52,7 +52,7 @@ var db = {
 };
 
 db.user = sequelize.import(__dirname + "/user");
-db.address = sequelize.import(__dirname + "/address")
+db.address = sequelize.import(__dirname + "/address");
 db.coach = sequelize.import(__dirname + "/coach");
 db.payment = sequelize.import(__dirname + "/payment");
 db.course = sequelize.import(__dirname + "/course");
