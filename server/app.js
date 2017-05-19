@@ -98,7 +98,7 @@ app.post('/yoga/wx/user/add', (req, res) => {
             wechat_id:data.openid
         };
         console.log(db.updateOrCreate);
-        db.updateOrCreate(db.user,{where: {wechat_id: newUser.wechat_id}},newUser,
+        db.updateOrCreate(db.user,{wechat_id: newUser.wechat_id},newUser,
             function(){
                 res.end(newUser.wechat_id + " has been added")
             },
