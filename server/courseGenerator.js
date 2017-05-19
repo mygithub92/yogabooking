@@ -17,10 +17,11 @@ var dayInMillisecond = 86400000;
 		var current = moment();
 		console.log('Starting creating course for date: ' + current.format('YYYY-MM-DD'));
 		var dow = current.day();
-		if(validDays.includes(dow)){
+		if(validDays.indexOf(dow) > -1){
 			for (i = 0; i < validPeriods[dow].length; i++) {
 				var period = validPeriods[dow][i];
 				var course = {date:current.format('YYYY-MM-DD'),start_time:period.start,end_time:period.end,spot_number:period.spotNumber,coachId:coachId,addressId:addressId}
+                
                 db.create(db.course,{date: course.date,start_time:course.start_time,end_time:course.end_time},course,function(){
                     console.log(course + "has been created");
                 })
