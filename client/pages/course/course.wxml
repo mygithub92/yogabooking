@@ -4,7 +4,12 @@
   <view wx:for="{{courses}}" wx:key="{{item.id}}">
     <view>
       <text class="user-motto">{{item.course_date}}</text>
+      <view wx:for="{{courses}}" wx:key="{{item.id}}">
+        <view>
+          <text class="user-motto">{{item.course_date}}</text>
+        </view>
+      </view>
     </view>
- </view>
- 
+  </view>
+
 </view>

@@ -51,7 +51,13 @@ app.get('/yoga/user',function(req,res){
 app.get('/yoga/wx/course/retrieve',(req,res) => {
     console.log(req.query);
     db.course.findAll({where:{addressId:req.query.addressId}}).then(result => {
-        res.end(JSON.stringify(result));
+        var resultMap = result.reduce(function(map, obj) {
+            map[obj.course_date] = obj;
+            return map;
+        }, {});
+
+        //console.log(JSON.stringify(resultMap));
+        res.end(JSON.stringify(resultMap));
     })
 })
 
