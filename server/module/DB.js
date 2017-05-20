@@ -43,10 +43,11 @@ var db = {
         onError = onError || function(err){console.log(err)};
         model.findOne({where: where}).then(function (foundItem) {
             if (!foundItem) {
-                model.create(newItem)
+                return model.create(newItem)
                     .then(onCreate)
                     .catch(onError);
             }
+            return foundItem;
         }).catch(onError);
     }
 };
@@ -66,6 +67,7 @@ db.course.belongsTo(db.address);
 
 db.booking.belongsTo(db.user);
 db.booking.belongsTo(db.course);
+db.course.hasMany(db.booking);
 
 db.sequelize = sequelize;
 

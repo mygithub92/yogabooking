@@ -9,8 +9,22 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
     },
-    start_time: DataTypes.TIME,
-    end_time:DataTypes.TIME,
+    start_time: {
+        type: DataTypes.TIME,
+        get: function(){
+            if(this.getDataValue('start_time')){
+              return this.getDataValue('start_time').slice(0,5);
+            }
+        }
+    },
+    end_time:{
+        type: DataTypes.TIME,
+        get: function(){
+            if(this.getDataValue('end_time')){
+              return this.getDataValue('end_time').slice(0,5);
+            }
+        }
+    },
     spot_number:DataTypes.INTEGER
   });
   return Course;

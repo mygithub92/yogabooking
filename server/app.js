@@ -48,13 +48,52 @@ app.get('/yoga/user',function(req,res){
 	res.sendFile(__dirname + '/user.html');
 })
 
+app.post('/yoga/wx/course/book',(req,res) => {
+    var userInfo = req.body.userInfo;
+    var courseId = req.body.courseId;
+    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
+        var newUser = {
+            wechat_name:userInfo.nickName,
+            avatar_url:userInfo.avatarUrl,
+            wechat_id:data.openid
+        };
+        db.create(db.user,{wechat_id: newUser.wechat_id},newUser,
+            function(){
+                res.end(newUser.id + " has been added")
+            },
+            function(err){
+                console.log(err);
+                res.end('err')
+        });
+        
+        
+    });
+
+})
+
+
 app.get('/yoga/wx/course/retrieve',(req,res) => {
-    console.log(req.query);
-    db.course.findAll({where:{addressId:req.query.addressId}}).then(result => {
-        var resultMap = result.reduce(function(map, obj) {
-            map[obj.course_date] = obj;
-            return map;
+    db.course.findAll({
+      where:{addressId:req.query.addressId, course_date:{$gt:new Date()}},
+      include: [
+        {
+          model: db.booking,
+          include: [
+            {
+              model: db.user
+            }
+          ]
+        }
+      ]}).then(result => {
+        var group_to_values = result.reduce(function(obj,item){
+            obj[item.course_date] = obj[item.course_date] || [];
+            obj[item.course_date].push(item);
+            return obj;
         }, {});
+
+        var resultMap = Object.keys(group_to_values).map(function(key){
+            return {course_date: key, periods: group_to_values[key]};
+        });
 
         //console.log(JSON.stringify(resultMap));
         res.end(JSON.stringify(resultMap));

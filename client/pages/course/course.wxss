@@ -5,11 +5,45 @@
   align-items: center;
 }
 
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
+}
+
+.userinfo-avatar-item {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.inline-view {
+  display: inline;
+}
+
+.block-text{
+  display:block;
+  align-items: center;
+}
+
+.course-section{
+  background-color: #aaa
+}
+
+.button-section{
+  width:40%;
+  align-items:center;
 }
 
 .userinfo-nickname {

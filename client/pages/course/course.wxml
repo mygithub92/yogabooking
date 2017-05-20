@@ -1,15 +1,22 @@
 <!--index.wxml-->
 <view class="container">
 
-  <view wx:for="{{courses}}" wx:key="{{item.id}}">
-    <view>
-      <text class="user-motto">{{item.course_date}}</text>
-      <view wx:for="{{courses}}" wx:key="{{item.id}}">
+  <view wx:for="{{courses}}" wx:for-item="course" wx:key="{{course.id}}" class="item-section">
+    <view class="item-section">
+      <text class="block-text">{{course.course_date}}</text>
+      <view wx:for="{{course.periods}}" wx:for-item="period" wx:key="{{period.start_time}}">
         <view>
-          <text class="user-motto">{{item.course_date}}</text>
+          <text class="block-text">{{period.start_time}} - {{period.end_time}}</text>
+          <view class="course-section">
+            <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8]}}" wx:for-item="spot" class="inline-view" wx:key="{{spot}}">
+              <image src="empty.png" class="userinfo-avatar-item"></image>
+            </view>
+          </view>
+          <view class="button-section">
+            <button type="primary" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="bookCourse"> 预定 </button>
+          </view>
         </view>
       </view>
     </view>
   </view>
-
 </view>
