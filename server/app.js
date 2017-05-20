@@ -57,16 +57,15 @@ app.post('/yoga/wx/course/book',(req,res) => {
             avatar_url:userInfo.avatarUrl,
             wechat_id:data.openid
         };
-        db.create(db.user,{wechat_id: newUser.wechat_id},newUser,
-            function(){
-                res.end(newUser.id + " has been added")
-            },
-            function(err){
-                console.log(err);
-                res.end('err')
-        });
-        
-        
+        db.user.findOrCreate({where:{wechat_id: newUser.wechat_id}}).then((result) => {
+            console.log("*******************************")
+            console.log(result)
+            console.log("*******************************")
+            db.booking.findOrCreate({where:{userId:result.id,courseId:courseId}}).then((result) =>{
+                res.end(result.id + "has been created");
+            })
+        })
+
     });
 
 })
@@ -101,7 +100,6 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
 })
 
 app.get('/yoga/wx/address/retrieve',(req,res) => {
-    console.log(req);
     db.address.findAll().then(result => {
         res.end(JSON.stringify(result));
     })
