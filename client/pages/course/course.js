@@ -80,11 +80,18 @@ Page({
         if (bookingLen === period.spot_number) {
           period.full = true;
         } else {
+          var currentUserPostion = 0;
           for (var i = 0; i < bookingLen; i++) {
             if (period.bookings[i].user.id === that.data.userInfo.id) {
               period.booked = true;
+              currentUserPostion = i;
               break;
             }
+          }
+          if (currentUserPostion > 0){
+            var currentUser = period.bookings[currentUserPostion];
+            period.bookings[currentUserPostion] = period.bookings[0];
+            period.bookings[0] = currentUser;
           }
           for (var i = bookingLen; i < period.spot_number; i++) {
             period.bookings.push({ user: { avatar_url: "empty.png" } })

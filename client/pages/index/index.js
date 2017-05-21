@@ -47,6 +47,7 @@ Page({
           that.setData({
             userInfo: userInfo
           });
+          console.log(that.data.userInfo);
         }
       })
     });
