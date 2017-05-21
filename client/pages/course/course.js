@@ -1,54 +1,135 @@
 var app = getApp()
 Page({
   data: {
-    userInfo:{},
-    courses:[]
+    userInfo: {},
+    addressId: {},
+    courses: [],
   },
-  bookCourse:function(event){
+
+  nextValidSpot: [],
+
+  bookASport: function (event) {
     var that = this;
     wx.request({
       url: 'https://64078752.jinjinyoga.net/yoga/wx/course/book',
-      method:"POST",
+      method: "POST",
       data: {
         courseId: event.target.id,
-        userInfo: that.data.userInfo
+        userId: that.data.userInfo.id
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        
+        that.data.courses.forEach(function (course) {
+          course.periods.forEach(function (period) {
+            if (period.id == event.target.id) {
+              period.booked = true;
+              period.bookings[0].user.avatar_url = that.data.userInfo.avatarUrl;
+              console.log(res.data);
+              period.userBookingId = res.data;
+              return;
+            }
+          })
+        })
+        that.setData({
+          courses: that.data.courses
+        });
+
+      }
+    })
+  },
+
+  cancelASport: function (event) {
+    var that = this;
+    var bookingId;
+    that.data.courses.forEach(function (course) {
+      course.periods.forEach(function (period) {
+        if (period.id == event.target.id) {
+          period.booked = false;
+          period.bookings[0].user.avatar_url = "empty.png";
+          bookingId = period.bookings[0].id;
+          return;
+        }
+      })
+    })
+    that.setData({
+      courses: that.data.courses
+    });
+    wx.request({
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/course/cancel',
+      method: "POST",
+      data: {
+        bookingId: bookingId
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: function (res) {
         console.log(res);
-        that.setData({
-          courses: res.data
-        });
       }
     })
   },
-  retrieveCourse: function(addressId){
+
+  populateSpots: function (courses, periodId) {
+    var that = this;
+    courses.forEach(function (course) {
+      course.periods.forEach(function (period) {
+        var bookingLen = period.bookings.length;
+        if (bookingLen === period.spot_number) {
+          period.full = true;
+        } else {
+          for (var i = 0; i < bookingLen; i++) {
+            if (period.bookings[i].user.id === that.data.userInfo.id) {
+              period.booked = true;
+              break;
+            }
+          }
+          for (var i = bookingLen; i < period.spot_number; i++) {
+            period.bookings.push({ user: { avatar_url: "empty.png" } })
+          }
+          that.nextValidSpot[period.id] = bookingLen;
+        }
+      })
+    })
+    that.setData({
+      courses: courses
+    });
+  },
+
+  retrieveCourse: function () {
     var that = this;
     wx.request({
-      url: 'https://64078752.jinjinyoga.net/yoga/wx/course/retrieve', 
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/course/retrieve',
       data: {
-        addressId:addressId
+        addressId: that.data.addressId
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: function (res) {
         console.log(res.data);
+        that.populateSpots(res.data);
         that.setData({
           courses: res.data
         });
       }
     })
   },
+
+
+
   onLoad: function (option) {
     var that = this
+    that.setData({
+      addressId: option.addressId
+    })
     app.getUserInfo(function (userInfo) {
       that.setData({
         userInfo: userInfo
       })
     });
-    that.retrieveCourse(option.addressId);
+    that.retrieveCourse();
   }
 })

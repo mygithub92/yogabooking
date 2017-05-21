@@ -49,27 +49,29 @@ app.get('/yoga/user',function(req,res){
 })
 
 app.post('/yoga/wx/course/book',(req,res) => {
-    var userInfo = req.body.userInfo;
+    var userId = req.body.userId;
     var courseId = req.body.courseId;
-    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
-        var newUser = {
-            wechat_name:userInfo.nickName,
-            avatar_url:userInfo.avatarUrl,
-            wechat_id:data.openid
-        };
-        db.user.findOrCreate({where:{wechat_id: newUser.wechat_id}}).then((result) => {
-            console.log("*******************************")
-            console.log(result)
-            console.log("*******************************")
-            db.booking.findOrCreate({where:{userId:result.id,courseId:courseId}}).then((result) =>{
-                res.end(result.id + "has been created");
-            })
-        })
+    db.booking.findOrCreate({where:{userId:userId,courseId:courseId}}).then((booking) =>{
+        if(booking[1]){
+            res.end(JSON.stringify(booking[0].getDataValue('id')));
+        }else{
+            console.err("Rebooking: courseId: " + courseId + " and userId: " + userId);
+        }
 
-    });
-
+    })
 })
 
+app.post('/yoga/wx/course/cancel',(req,res) => {
+    var bookingId = req.body.bookingId;
+    
+    db.booking.destroy({where:{id:bookingId}}).then((deletedRecord) =>{
+        if(deletedRecord === 1){
+                res.status(200).json({message:"Deleted successfully"});
+            }else{
+                res.status(404).json({message:"record not found"})
+            }
+    })
+})
 
 app.get('/yoga/wx/course/retrieve',(req,res) => {
     db.course.findAll({
@@ -98,6 +100,25 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
         res.end(JSON.stringify(resultMap));
     })
 })
+
+app.post('/yoga/wx/user/verify',(req,res) => {
+    var userInfo = req.body.userInfo;
+    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
+        var newUser = {
+            wechat_name:userInfo.nickName,
+            avatar_url:userInfo.avatarUrl,
+            wechat_id:data.openid
+        };
+        db.user.findOrCreate({where:{wechat_id: newUser.wechat_id}}).then((result) => {
+            if(result[1]){
+               console.log("New user of " + result[0].getDataValue('id') + ", " + result[0].getDataValue('nickName') + " has been created") 
+            }
+            res.end(JSON.stringify(result[0]));
+        })
+    });
+
+})
+
 
 app.get('/yoga/wx/address/retrieve',(req,res) => {
     db.address.findAll().then(result => {
