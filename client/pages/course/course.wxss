@@ -63,13 +63,13 @@
   margin-bottom: 5rpx;
 }
 
-.time-section .start{
+.start{
   display: flex;
   margin-right: 5rpx;
   padding-top: 100rpx;
 }
 
-.time-section .end{
+.end{
   display: flex;
   padding-top: 50rpx;
 }
@@ -87,7 +87,6 @@
   background-color:#ccffff;
   flex-direction:row;
   justify-content:center;
-  margin-bottom:5rpx;
 }
 
 .userinfo-nickname {
@@ -96,4 +95,40 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.HolyGrail {
+  display: flex;
+  min-height: 100rpx;
+  flex-direction: column;
+}
+
+.header{
+  flex: 1;
+}
+
+.HolyGrail-body {
+  display: flex;
+  flex: 1;
+  margin-bottom: 5rpx
+}
+
+.HolyGrail-content {
+  flex: 1;
+  background-color:#ccffff;
+}
+
+.HolyGrail-nav{
+  flex: 1;
+  margin-right: 5rpx;
+  background-color:#ccffff;
+}
+
+.HolyGrail-content {
+  flex: 1;
+  background-color:#ccffff;
+}
+
+.HolyGrail-nav {
+  order: -1;
 }
