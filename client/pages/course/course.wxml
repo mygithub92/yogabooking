@@ -1,19 +1,19 @@
 <!--index.wxml-->
 <view class="container">
 
-  <view wx:for="{{courses}}" wx:for-item="course" wx:key="{{course.id}}" class="item-section">
-    <view class="item-section">
-      <view class="date-section">
+  <view wx:for="{{courses}}" wx:for-item="course" wx:key="{{course.id}}">
+    <view class="HolyGrail">
+      <view class="header">
         <text class="date-section">{{course.course_date}}</text>
       </view>
       <view wx:for="{{course.periods}}" wx:for-item="period" wx:key="{{period.start_time}}">
-        <view class="period-section">
-          <view class="time-section">
+        <view class="HolyGrail-body">
+          <view class="HolyGrail-nav">
             <text class="block-text start">{{period.start_time}}</text>
             <text class="block-text end">{{period.end_time}}</text>
           </view>
           <view>
-            <view class="course-section">
+            <view class="HolyGrail-content">
               <view wx:for="{{period.bookings}}" wx:for-item="spot" class="inline-view" wx:key="{{spot.id}}">
                 <image src="{{spot.user.avatar_url}}" class="userinfo-avatar-item"></image>
               </view>
