@@ -58,8 +58,9 @@
   justify-content:center;
   border-top-left-radius:30rpx;
   border-top-right-radius:30rpx;
-  padding-top: 10rpx;
-  padding-bottom: 8rpx;
+  padding-top: 40rpx;
+  padding-bottom: 20rpx;
+  margin-top: 20rpx;
   margin-bottom: 5rpx;
 }
 

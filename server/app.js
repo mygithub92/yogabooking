@@ -86,7 +86,8 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
             }
           ]
         }
-      ]}).then(result => {
+      ],
+     order:['course_date','start_time']}).then(result => {
         var group_to_values = result.reduce(function(obj,item){
             obj[item.course_date] = obj[item.course_date] || [];
             obj[item.course_date].push(item);
@@ -95,7 +96,7 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
 
         var resultMap = Object.keys(group_to_values).map(function(key){
             var dayNumber  =moment(key).day();
-            return {course_date: key + ' ' + util.days_cn[dayNumber], periods: group_to_values[key]};
+            return {course_date: key + ' ' + Util.days_cn[dayNumber], periods: group_to_values[key]};
         });
 
         //console.log(JSON.stringify(resultMap));
