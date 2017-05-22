@@ -1,11 +1,11 @@
-/**index.wxss**/
+/**app.wxss**/
 .container {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  padding: 90rpx 0;
   box-sizing: border-box;
 } 
 .userinfo {
@@ -23,6 +23,14 @@
 
 .userinfo-nickname {
   color: #aaa;
+}
+
+.address-item {
+  margin-top: 20rpx;
+  padding:30rpx 20rpx 30rpx 20rpx;
+  background-color:#eeeeee;
+  border-radius: 20px;
+  border:1px cornflowerblue solid;
 }
 
 .usermotto {

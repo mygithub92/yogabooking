@@ -26,9 +26,8 @@ Page({
           course.periods.forEach(function (period) {
             if (period.id == event.target.id) {
               period.booked = true;
-              period.bookings[0].user.avatar_url = that.data.userInfo.avatarUrl;
-              console.log(res.data);
-              period.userBookingId = res.data;
+              period.bookings.splice(0, 0, { courseId: period.id, id: res.data, userId: that.data.userInfo.id, user: { wechat_name: that.data.userInfo.nickName, avatar_url: that.data.userInfo.avatarUrl}})
+              period.bookings.splice(period.bookings.length-1,1);
               return;
             }
           })
@@ -48,8 +47,9 @@ Page({
       course.periods.forEach(function (period) {
         if (period.id == event.target.id) {
           period.booked = false;
-          period.bookings[0].user.avatar_url = "empty.png";
           bookingId = period.bookings[0].id;
+          period.bookings.splice(0,1);
+          period.bookings.push({ user: { avatar_url: "empty.png", wechat_name: "E" } })
           return;
         }
       })
@@ -94,7 +94,7 @@ Page({
             period.bookings[0] = currentUser;
           }
           for (var i = bookingLen; i < period.spot_number; i++) {
-            period.bookings.push({ user: { avatar_url: "empty.png" } })
+            period.bookings.push({ user: { avatar_url: "empty.png", wechat_name:"E" } })
           }
           that.nextValidSpot[period.id] = bookingLen;
         }

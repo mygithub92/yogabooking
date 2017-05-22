@@ -14,16 +14,10 @@
   padding: 10rpx 0;
   box-sizing: border-box;
 }
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
 
 .userinfo-avatar-item {
-  width: 128rpx;
-  height: 128rpx;
+  width: 120rpx;
+  height: 120rpx;
   margin: 20rpx;
   border-radius: 50%;
 }
@@ -37,12 +31,45 @@
   align-items: center;
 }
 
+.period-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.time-section {
+  display: flex;
+  background-color: #ded;
+  width:115rpx;
+  height: 340rpx;
+  margin-right: 5rpx;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-section{
+  display: flex;
+  background-color: #ABC;
+  align-content: center;
+}
+
+.time-section .start{
+  display: flex;
+  align-items: top;
+}
+
+.time-section .end{
+  display: flex;
+  align-items: bottom;
+}
+
 .course-section{
   background-color: #aaa
 }
 
 .button-section{
-  width:40%;
+  width:100%;
   align-items:center;
 }
 
