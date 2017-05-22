@@ -15,7 +15,8 @@
 	}, {});
 
 	var groups = Object.keys(group_to_values).map(function(key){
-		return {course_date: key, periods: group_to_values[key]};
+		var result  =moment(key).day();
+		return {course_date: result, periods: group_to_values[key]};
 	});
 
 	console.log(groups);

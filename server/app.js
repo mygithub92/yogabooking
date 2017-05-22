@@ -8,6 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const config = require('./config');
+var moment = require('moment');
 var db = require('./models/DB');
 var fs = require('fs');
 var Util = require('./utils/Util');
@@ -93,7 +94,8 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
         }, {});
 
         var resultMap = Object.keys(group_to_values).map(function(key){
-            return {course_date: key, periods: group_to_values[key]};
+            var dayNumber  =moment(key).day();
+            return {course_date: key + ' ' + util.days_cn[dayNumber], periods: group_to_values[key]};
         });
 
         //console.log(JSON.stringify(resultMap));

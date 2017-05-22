@@ -2,7 +2,11 @@ var request = require('request-promise');
 
 var WXBizDataCrypt = require('./WXBizDataCrypt')
 
+
+
 function Util(){}
+
+Util.days_cn = {1:'星期一',2:'星期二',3:'星期三',4:'星期四',5:'	星期五',6:'星期六',7:'星期日'}
 
 Util.prototype.decryptData = function(encryptedData, iv,sessionKey){
     var pc = new WXBizDataCrypt('wx7843d4407c191b44', sessionKey)

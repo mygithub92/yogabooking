@@ -56,16 +56,24 @@
 
 .time-section .start{
   display: flex;
+  margin-right: 5rpx;
+  padding-top: 50rpx;
   align-items: top;
 }
 
 .time-section .end{
   display: flex;
+  padding-top: 50rpx;
   align-items: bottom;
 }
 
 .course-section{
-  background-color: #aaa
+  background-color: #ded
+}
+
+.arrow-down{
+  width:90rpx;
+  height: 90rpx;
 }
 
 .button-section{
