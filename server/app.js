@@ -103,18 +103,19 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
 
 app.post('/yoga/wx/user/verify',(req,res) => {
     var userInfo = req.body.userInfo;
+    
     util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
-        var newUser = {
-            wechat_name:userInfo.nickName,
-            avatar_url:userInfo.avatarUrl,
-            wechat_id:data.openid
-        };
-        db.user.findOrCreate({where:{wechat_id: newUser.wechat_id}}).then((result) => {
-            if(result[1]){
-               console.log("New user of " + result[0].getDataValue('id') + ", " + result[0].getDataValue('nickName') + " has been created") 
-            }
-            res.end(JSON.stringify(result[0]));
-        })
+        db.user.findOrCreate({
+            where:{wechat_id: data.openid},
+            defaults:{
+                wechat_name:userInfo.nickName,
+                avatar_url:userInfo.avatarUrl
+            }}).then((result) => {
+                if(result[1]){
+                   console.log("New user of " + result[0].getDataValue('id') + ", " + result[0].getDataValue('nickName') + " has been created") 
+                }
+                res.end(JSON.stringify(result[0]));
+            })
     });
 
 })
