@@ -3,27 +3,33 @@
 
   <view wx:for="{{courses}}" wx:for-item="course" wx:key="{{course.id}}" class="item-section">
     <view class="item-section">
-      <text class="date-section">{{course.course_date}}</text>
+      <view class="date-section">
+        <text class="date-section">{{course.course_date}}</text>
+      </view>
       <view wx:for="{{course.periods}}" wx:for-item="period" wx:key="{{period.start_time}}">
         <view class="period-section">
           <view class="time-section">
             <text class="block-text start">{{period.start_time}}</text>
             <text class="block-text end">{{period.end_time}}</text>
           </view>
-
+          <view>
             <view class="course-section">
               <view wx:for="{{period.bookings}}" wx:for-item="spot" class="inline-view" wx:key="{{spot.id}}">
                 <image src="{{spot.user.avatar_url}}" class="userinfo-avatar-item"></image>
               </view>
             </view>
+            <view class="button-group">
+              <view class="button-section" wx:if="{{period.booked}}">
+                <button type="warn" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="cancelASport"> 取消 </button>
+              </view>
+              <view class="button-section" wx:else>
+                <button type="primary" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="bookASport"> 预定 </button>
+              </view>
+            </view>
           </view>
-            <view class="button-section" wx:if="{{period.booked}}">
-              <button type="warn" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="cancelASport"> 取消 </button>
-            </view>
-            <view class="button-section" wx:else>
-              <button type="primary" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="bookASport"> 预定 </button>
-            </view>
+
         </view>
+      </view>
 
     </view>
   </view>

@@ -21,7 +21,6 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        
         that.data.courses.forEach(function (course) {
           course.periods.forEach(function (period) {
             if (period.id == event.target.id) {
@@ -35,7 +34,10 @@ Page({
         that.setData({
           courses: that.data.courses
         });
-
+        wx.showToast({
+          title: '预定成功',
+          icon:'success'
+        })
       }
     })
   },
@@ -70,6 +72,11 @@ Page({
         console.log(res);
       }
     })
+    wx.showToast({
+      title: '取消成功',
+      icon: 'success'
+    })
+
   },
 
   populateSpots: function (courses, periodId) {

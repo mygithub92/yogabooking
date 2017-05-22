@@ -37,48 +37,56 @@
   align-items: center;
 }
 
+.item-section{
+  margin-top: 10rpx;
+}
 
 .time-section {
   display: flex;
-  background-color: #ded;
+  background-color: #ccffff;
   width:115rpx;
-  height: 340rpx;
+  height: 433rpx;
   margin-right: 5rpx;
   flex-direction: column;
-  align-items: center;
+  margin-bottom: 5rpx;
 }
 
 .date-section{
   display: flex;
-  background-color: #ABC;
-  align-content: center;
+  background-color: #b3ffff;
+  flex-direction:row;
+  justify-content:center;
+  border-top-left-radius:30rpx;
+  border-top-right-radius:30rpx;
+  padding-top: 10rpx;
+  padding-bottom: 8rpx;
 }
 
 .time-section .start{
   display: flex;
   margin-right: 5rpx;
-  padding-top: 50rpx;
-  align-items: top;
+  padding-top: 100rpx;
 }
 
 .time-section .end{
   display: flex;
   padding-top: 50rpx;
-  align-items: bottom;
 }
 
 .course-section{
-  background-color: #ded
-}
-
-.arrow-down{
-  width:90rpx;
-  height: 90rpx;
+  background-color: #ccffff;
 }
 
 .button-section{
-  width:100%;
-  align-items:center;
+  width:40%;
+}
+
+.button-group{
+  display:flex;
+  background-color:#ccffff;
+  flex-direction:row;
+  justify-content:center;
+  margin-bottom:5rpx;
 }
 
 .userinfo-nickname {
