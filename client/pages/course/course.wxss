@@ -53,13 +53,14 @@
 
 .date-section{
   display: flex;
-  background-color: #b3ffff;
+  background-color: #ccffff;
   flex-direction:row;
   justify-content:center;
   border-top-left-radius:30rpx;
   border-top-right-radius:30rpx;
   padding-top: 10rpx;
   padding-bottom: 8rpx;
+  margin-bottom: 5rpx;
 }
 
 .time-section .start{

@@ -36,7 +36,8 @@ Page({
         });
         wx.showToast({
           title: '预定成功',
-          icon:'success'
+          icon:'success',
+          duration: 500
         })
       }
     })
@@ -74,7 +75,8 @@ Page({
     })
     wx.showToast({
       title: '取消成功',
-      icon: 'success'
+      icon: 'success',
+      duration: 500
     })
 
   },
