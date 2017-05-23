@@ -1,17 +1,28 @@
 /**app.wxss**/
+
 .container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30rpx 0;
-  box-sizing: border-box;
-  background: url("https://64078752.jinjinyoga.net/static/yoga3.jpg");
+  height: 1100rpx;
+  background: url("https://64078752.jinjinyoga.net/static/yoga.png");
   background-size: cover;
   background-repeat: no-repeat;
-} 
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.userInfoContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 80%;
+}
+
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -29,21 +40,46 @@
   color: #aaa;
 }
 
-.home-icon{
+.home-icon {
   height: 60rpx;
   width: 60rpx;
   margin-right: 20rpx;
   vertical-align: bottom;
 }
 
+.address-content {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .address-item {
-  padding:30rpx 20rpx 30rpx 20rpx;
-  background:linear-gradient(#e6b475,#e6c275,#e6fe75);
-  border-radius: 1px;
-  margin-bottom: 3rpx;
-  width: 98%;
+  margin-bottom: 20rpx;
+  width: 95%;
+  color: ivory;
+  background: rgba(230,180,117,  0.3);
+  padding: 20rpx 5rpx 20rpx 5rpx;
+  border-radius: 5rpx;
 }
 
 .usermotto {
   margin-top: 200px;
+}
+
+.message-content {
+  display: flex;
+  justify-content: flex-end;
+  text-shadow: 3px 2px #404040;
+  color: white;
+}
+
+.times-number {
+  display: inline;
+  background: linear-gradient(#e6b475, #ffffff);
+  font-size: 150%;
+  padding: 5rpx;
+  margin-left: 5rpx;
+  margin-right: 5rpx;
+  border-radius: 50%;
 }

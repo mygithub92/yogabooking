@@ -1,15 +1,22 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-
-  <block wx:for="{{addresses}}" wx:key="{{item.id}}">
-    <view  bindtap="stepInto" id="{{item.id}}" class="address-item address-icon">
-      <image src="Home-64.png" class="home-icon"></image>
-      <text class="user-motto">{{item.address}}</text>
+  <view class="main">
+    <view class="userInfoContent">
+      <view class="userinfo">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </view>
     </view>
- </block>
- 
+    <view class="address-content">
+      <block wx:for="{{addresses}}" wx:key="{{item.id}}">
+        <view bindtap="stepInto" id="{{item.id}}" class="address-item address-icon">
+          <image src="Home-64.png" class="home-icon"></image>
+          <text class="user-motto">{{item.address}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="message-content">
+      您还有<view class="times-number">8</view>次瑜伽课, 请戳上面的地址选课 
+    </view>
+  </view>
 </view>
