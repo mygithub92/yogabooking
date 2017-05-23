@@ -15,6 +15,9 @@
   box-sizing: border-box;
 }
 
+.content{
+  margin-bottom: 20rpx;
+}
 .userinfo-avatar-item {
   width: 120rpx;
   height: 120rpx;
@@ -53,15 +56,14 @@
 
 .date-section{
   display: flex;
-  background-color: #ccffff;
   flex-direction:row;
   justify-content:center;
   border-top-left-radius:30rpx;
   border-top-right-radius:30rpx;
   padding-top: 40rpx;
   padding-bottom: 20rpx;
-  margin-top: 20rpx;
   margin-bottom: 5rpx;
+  background:linear-gradient(#ccff11,#ccffff 90%);
 }
 
 .start{
@@ -111,7 +113,6 @@
 .HolyGrail-body {
   display: flex;
   flex: 1;
-  margin-bottom: 5rpx
 }
 
 .HolyGrail-content {

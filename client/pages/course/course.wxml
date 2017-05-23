@@ -1,7 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-
-  <view wx:for="{{courses}}" wx:for-item="course" wx:key="{{course.id}}">
+  <view wx:for="{{courses}}" wx:for-item="course" wx:key="{{course.id}}" class="content">
     <view class="HolyGrail">
       <view class="header">
         <text class="date-section">{{course.course_date}}</text>
