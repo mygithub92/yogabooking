@@ -78,7 +78,6 @@ Page({
       icon: 'success',
       duration: 500
     })
-
   },
 
   populateSpots: function (courses, periodId) {
@@ -86,9 +85,8 @@ Page({
     courses.forEach(function (course) {
       course.periods.forEach(function (period) {
         var bookingLen = period.bookings.length;
-        if (bookingLen === period.spot_number) {
-          period.full = true;
-        } else {
+        if (period.spot_number > bookingLen) {
+          period.valid = true;
           var currentUserPostion = 0;
           for (var i = 0; i < bookingLen; i++) {
             if (period.bookings[i].user.id === that.data.userInfo.id) {

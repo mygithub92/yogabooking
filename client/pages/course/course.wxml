@@ -21,7 +21,7 @@
               <view class="button-section" wx:if="{{period.booked}}">
                 <button type="warn" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="cancelASport"> 取消 </button>
               </view>
-              <view class="button-section" wx:else>
+              <view class="button-section" wx:elif="{{period.valid}}">
                 <button type="primary" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="bookASport"> 预定 </button>
               </view>
             </view>
