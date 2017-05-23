@@ -8,7 +8,9 @@
   justify-content: space-between;
   padding: 30rpx 0;
   box-sizing: border-box;
-  background-image: url("./yoga3.jpg")
+  background: url("https://64078752.jinjinyoga.net/static/yoga3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 } 
 .userinfo {
   display: flex;
@@ -36,9 +38,9 @@
 
 .address-item {
   padding:30rpx 20rpx 30rpx 20rpx;
-  background:linear-gradient(#b3d9ff,#cce6ff,#e6f2ff);
+  background:linear-gradient(#e6b475,#e6c275,#e6fe75);
   border-radius: 1px;
-  border:1px cornflowerblue solid;
+  margin-bottom: 3rpx;
   width: 98%;
 }
 

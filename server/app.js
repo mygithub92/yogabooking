@@ -8,6 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const config = require('./config');
+var path = require('path');
 var moment = require('moment');
 var db = require('./models/DB');
 var fs = require('fs');
