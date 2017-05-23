@@ -1,12 +1,14 @@
 /**app.wxss**/
 .container {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 90rpx 0;
+  padding: 30rpx 0;
   box-sizing: border-box;
+  background-image: url("./yoga3.jpg")
 } 
 .userinfo {
   display: flex;
@@ -25,12 +27,19 @@
   color: #aaa;
 }
 
+.home-icon{
+  height: 60rpx;
+  width: 60rpx;
+  margin-right: 20rpx;
+  vertical-align: bottom;
+}
+
 .address-item {
-  margin-top: 20rpx;
   padding:30rpx 20rpx 30rpx 20rpx;
-  background-color:#eeeeee;
-  border-radius: 20px;
+  background:linear-gradient(#b3d9ff,#cce6ff,#e6f2ff);
+  border-radius: 1px;
   border:1px cornflowerblue solid;
+  width: 98%;
 }
 
 .usermotto {

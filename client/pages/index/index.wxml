@@ -5,10 +5,11 @@
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
 
-  <view wx:for="{{addresses}}" wx:key="{{item.id}}">
-    <view  bindtap="stepInto" id="{{item.id}}" class="address-item">
+  <block wx:for="{{addresses}}" wx:key="{{item.id}}">
+    <view  bindtap="stepInto" id="{{item.id}}" class="address-item address-icon">
+      <image src="Home-64.png" class="home-icon"></image>
       <text class="user-motto">{{item.address}}</text>
     </view>
- </view>
+ </block>
  
 </view>
