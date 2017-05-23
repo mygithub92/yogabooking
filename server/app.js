@@ -100,7 +100,6 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
             return {course_date: key + ' ' + Util.days_cn[dayNumber], periods: group_to_values[key]};
         });
 
-        //console.log(JSON.stringify(resultMap));
         res.end(JSON.stringify(resultMap));
     })
 })

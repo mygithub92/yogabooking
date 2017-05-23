@@ -1,4 +1,5 @@
 /**index.wxss**/
+
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -15,9 +16,10 @@
   box-sizing: border-box;
 }
 
-.content{
+.content {
   margin-bottom: 20rpx;
 }
+
 .userinfo-avatar-item {
   width: 120rpx;
   height: 120rpx;
@@ -29,8 +31,8 @@
   display: inline;
 }
 
-.block-text{
-  display:block;
+.block-text {
+  display: block;
   align-items: center;
 }
 
@@ -40,56 +42,56 @@
   align-items: center;
 }
 
-.item-section{
+.item-section {
   margin-top: 10rpx;
 }
 
 .time-section {
   display: flex;
-  background-color: #ccffff;
-  width:115rpx;
+  background-color: #cff;
+  width: 115rpx;
   height: 433rpx;
   margin-right: 5rpx;
   flex-direction: column;
   margin-bottom: 5rpx;
 }
 
-.date-section{
+.date-section {
   display: flex;
-  flex-direction:row;
-  justify-content:center;
-  border-top-left-radius:30rpx;
-  border-top-right-radius:30rpx;
+  flex-direction: row;
+  justify-content: center;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
   padding-top: 40rpx;
   padding-bottom: 20rpx;
   margin-bottom: 5rpx;
-  background:linear-gradient(#ccff11,#ccffff 90%);
+  background: linear-gradient(#cf1, #cff 90%);
 }
 
-.start{
+.start {
   display: flex;
   margin-right: 5rpx;
   padding-top: 100rpx;
 }
 
-.end{
+.end {
   display: flex;
   padding-top: 50rpx;
 }
 
-.course-section{
-  background-color: #ccffff;
+.course-section {
+  background-color: #cff;
 }
 
-.button-section{
-  width:40%;
+.button-section {
+  width: 40%;
 }
 
-.button-group{
-  display:flex;
-  background-color:#ccffff;
-  flex-direction:row;
-  justify-content:center;
+.button-group {
+  display: flex;
+  background-color: #cff;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .userinfo-nickname {
@@ -106,7 +108,7 @@
   flex-direction: column;
 }
 
-.header{
+.header {
   flex: 1;
 }
 
@@ -118,18 +120,18 @@
 
 .HolyGrail-content {
   flex: 1;
-  background-color:#ccffff;
+  background-color: #cff;
 }
 
-.HolyGrail-nav{
+.HolyGrail-nav {
   flex: 1;
   margin-right: 5rpx;
-  background-color:#ccffff;
+  background-color: #cff;
 }
 
 .HolyGrail-content {
   flex: 1;
-  background-color:#ccffff;
+  background-color: #cff;
 }
 
 .HolyGrail-nav {
