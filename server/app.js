@@ -133,6 +133,12 @@ app.get('/yoga/wx/address/retrieve',(req,res) => {
     })
 })
 
+app.get('/yoga/wx/payment/retrieve',(req,res) => {
+    db.payment.findOne({where:{userId:req.query.userId}}).then(result => {
+        res.end(JSON.stringify(result));
+    })
+})
+
 app.post('/yoga/wx/user/add', (req, res) => {
     console.log(req.body);
     var userInfo = req.body.userInfo;

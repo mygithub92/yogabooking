@@ -16,7 +16,7 @@
       </block>
     </view>
     <view class="message-content">
-      您还有<view class="times-number">8</view>次瑜伽课, 请戳上面的地址选课 
+      您还有<view class="times-number">{{payment.times}}</view>次瑜伽课, 请戳上面的地址选课 
     </view>
   </view>
 </view>

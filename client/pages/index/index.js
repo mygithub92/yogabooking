@@ -4,7 +4,8 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
-    addresses:[]
+    addresses:[],
+    payment:{}
   },
 
   retrieveAddress: function(){
@@ -19,6 +20,25 @@ Page({
           that.setData({
              addresses:res.data
           });
+      }
+    })
+  },
+
+  retrievePayment: function () {
+    var that = this;
+    wx.request({
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/payment/retrieve',
+      data:{
+        userId: userInfo.id
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          payment: res.data
+        });
       }
     })
   },
@@ -48,6 +68,7 @@ Page({
             userInfo: userInfo
           });
           console.log(that.data.userInfo);
+          retrievePayment();          
         }
       })
     });
