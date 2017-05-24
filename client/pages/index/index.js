@@ -5,7 +5,7 @@ Page({
   data: {
     userInfo: {},
     addresses:[],
-    payment:{}
+    payment:{times:0}
   },
 
   retrieveAddress: function(){
@@ -29,16 +29,18 @@ Page({
     wx.request({
       url: 'https://64078752.jinjinyoga.net/yoga/wx/payment/retrieve',
       data:{
-        userId: userInfo.id
+        userId: that.data.userInfo.id
       },
       header: {
         'Content-Type': 'application/json'
       },
       success: function (res) {
         console.log(res.data);
+        if(res.data){
         that.setData({
           payment: res.data
         });
+        }
       }
     })
   },
@@ -68,7 +70,7 @@ Page({
             userInfo: userInfo
           });
           console.log(that.data.userInfo);
-          retrievePayment();          
+          that.retrievePayment();          
         }
       })
     });
