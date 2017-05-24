@@ -84,9 +84,9 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
           include: [
             {
               model: db.user,
-              include:[
+              include:[{
                   model: db.payment
-              ]
+                }]
             }
           ]
         }
