@@ -83,7 +83,10 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
           model: db.booking,
           include: [
             {
-              model: db.user
+              model: db.user,
+              include:[
+                  model: db.payment
+              ]
             }
           ]
         }
