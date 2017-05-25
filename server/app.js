@@ -136,24 +136,23 @@ app.get('/yoga/wx/address/retrieve',(req,res) => {
 
 app.get('/yoga/wx/payment/retrieve',(req,res) => {
     db.payment.findOne({where:{userId:req.query.userId}}).then(foundPayment => {
-        var result = {paymentNumber: 0,bookings:0};
+        var result = {paymentNumber: 0,bookingNumber:0};
         
         if(foundPayment){
             result.paymentNumber = foundPayment.times;
         }
-        db.booking.findAll({where:{userId:req.query.userId}).then(foundBookings => {
+        db.booking.findAll({where:{userId:req.query.userId}}).then(foundBookings => {
             if(foundBookings){
                 var courseIds = foundBookings.map(function(booking){
                    return booking.courseId;      
                 })
                 db.course.findAll({where:{id:{$in:courseIds},course_date:{$gt:new Date()}},
-                               attributes:[[sequelize.fn('COUNT', sequelize.col('id')), 'course_num']]}).then(foundCourseNumber =>{
-                    result.bookings = foundCourseNumber.course_num;
+                               attributes:[[db.sequelize.fn('COUNT', db.sequelize.col('id')), 'course_num']]}).then(foundCourseNumber =>{
+                    result.bookingNumber = foundCourseNumber[0].getDataValue('course_num');
+                    res.end(JSON.stringify(result));
                 })     
             }
         })
-        
-        res.end(JSON.stringify(result));
     })
 })
 

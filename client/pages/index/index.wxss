@@ -69,17 +69,21 @@
 
 .message-content {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
+  align-items: stretch;
   text-shadow: 3px 2px #404040;
   color: white;
 }
 
+.message-item{
+  margin-bottom: 15rpx;
+}
+
 .times-number {
   display: inline;
+  color: red;
   background: linear-gradient(#e6b475, #ffffff);
   font-size: 150%;
-  padding: 5rpx;
-  margin-left: 5rpx;
-  margin-right: 5rpx;
   border-radius: 50%;
 }

@@ -16,7 +16,12 @@
       </block>
     </view>
     <view class="message-content">
-      您还有<view class="times-number">{{payment.times}}</view>次瑜伽课, 请戳上面的地址选课 
+      <view class="message-item">
+      您的余额还可以预定<view class="times-number">{{paymentNumber}}</view>次瑜伽课
+      </view>
+      <view class="message-item">
+      您已经预定了<view class="times-number">{{bookingNumber}}</view>次瑜伽课
+      </view> 
     </view>
   </view>
 </view>

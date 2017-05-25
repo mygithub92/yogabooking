@@ -5,8 +5,8 @@ Page({
   data: {
     userInfo: {},
     addresses: [],
-    payment: { times: 0 },
-    bookings: 0
+    paymentNumber: 0,
+    bookingNumber: 0
   },
 
   retrieveAddress: function () {
@@ -38,8 +38,8 @@ Page({
       success: function (res) {
         console.log(res.data);
         that.setData({
-          bookings: res.data.bookingNumber,
-          payment: res.data.paymentNumber
+          bookingNumber: res.data.bookingNumber,
+          paymentNumber: res.data.paymentNumber
         });
       }
     })

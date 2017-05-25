@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/course/course"
-    ],
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#e6b475",
