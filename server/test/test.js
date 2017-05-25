@@ -20,5 +20,8 @@
 		return {course_date: b, periods: group_to_values[key]};
 	});
 
-	console.log(groups);
+	var groups1 = myArray.map(function(ele){
+		return ele.group;
+	})
+	console.log(groups1);
 })()

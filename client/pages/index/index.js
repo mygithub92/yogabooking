@@ -4,22 +4,23 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
-    addresses:[],
-    payment:{times:0}
+    addresses: [],
+    payment: { times: 0 },
+    bookings: 0
   },
 
-  retrieveAddress: function(){
+  retrieveAddress: function () {
     var that = this;
-    wx.request({ 
-      url: 'https://64078752.jinjinyoga.net/yoga/wx/address/retrieve', 
+    wx.request({
+      url: 'https://64078752.jinjinyoga.net/yoga/wx/address/retrieve',
       header: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
-      success: function(res) {
-          console.log(res.data);
-          that.setData({
-             addresses:res.data
-          });
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          addresses: res.data
+        });
       }
     })
   },
@@ -28,7 +29,7 @@ Page({
     var that = this;
     wx.request({
       url: 'https://64078752.jinjinyoga.net/yoga/wx/payment/retrieve',
-      data:{
+      data: {
         userId: that.data.userInfo.id
       },
       header: {
@@ -36,23 +37,21 @@ Page({
       },
       success: function (res) {
         console.log(res.data);
-        if(res.data){
         that.setData({
-          payment: res.data
+          bookings: res.data.bookingNumber,
+          payment: res.data.paymentNumber
         });
-        }
       }
     })
   },
 
-
-  stepInto: function(e){
+  stepInto: function (e) {
     wx.navigateTo({ url: '../course/course?addressId=' + e.currentTarget.id });
   },
 
   onLoad: function () {
     var that = this
-    app.getUserInfo(function(userInfo){
+    app.getUserInfo(function (userInfo) {
       wx.request({
         url: 'https://64078752.jinjinyoga.net/yoga/wx/user/verify',
         method: "POST",
@@ -70,7 +69,7 @@ Page({
             userInfo: userInfo
           });
           console.log(that.data.userInfo);
-          that.retrievePayment();          
+          that.retrievePayment();
         }
       })
     });

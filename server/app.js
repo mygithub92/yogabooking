@@ -57,7 +57,8 @@ app.post('/yoga/wx/course/book',(req,res) => {
         if(booking[1]){
             res.end(JSON.stringify(booking[0].getDataValue('id')));
         }else{
-            console.err("Rebooking: courseId: " + courseId + " and userId: " + userId);
+            res.status(404).json({message:"Rebooking: courseId: " + courseId + " and userId: " + userId})
+            console.log("Rebooking: courseId: " + courseId + " and userId: " + userId);
         }
 
     })
@@ -68,10 +69,10 @@ app.post('/yoga/wx/course/cancel',(req,res) => {
     
     db.booking.destroy({where:{id:bookingId}}).then((deletedRecord) =>{
         if(deletedRecord === 1){
-                res.status(200).json({message:"Deleted successfully"});
-            }else{
-                res.status(404).json({message:"record not found"})
-            }
+            res.status(200).json({message:"Deleted successfully"});
+        }else{
+            res.status(404).json({message:"record not found"})
+        }
     })
 })
 
@@ -134,7 +135,24 @@ app.get('/yoga/wx/address/retrieve',(req,res) => {
 })
 
 app.get('/yoga/wx/payment/retrieve',(req,res) => {
-    db.payment.findOne({where:{userId:req.query.userId}}).then(result => {
+    db.payment.findOne({where:{userId:req.query.userId}}).then(foundPayment => {
+        var result = {paymentNumber: 0,bookings:0};
+        
+        if(foundPayment){
+            result.paymentNumber = foundPayment.times;
+        }
+        db.booking.findAll({where:{userId:req.query.userId}).then(foundBookings => {
+            if(foundBookings){
+                var courseIds = foundBookings.map(function(booking){
+                   return booking.courseId;      
+                })
+                db.course.findAll({where:{id:{$in:courseIds},course_date:{$gt:new Date()}},
+                               attributes:[[sequelize.fn('COUNT', sequelize.col('id')), 'course_num']]}).then(foundCourseNumber =>{
+                    result.bookings = foundCourseNumber.course_num;
+                })     
+            }
+        })
+        
         res.end(JSON.stringify(result));
     })
 })
