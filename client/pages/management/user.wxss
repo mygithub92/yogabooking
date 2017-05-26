@@ -1,1 +1,17 @@
-/* user.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.userinfo-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  padding-right: 25rpx;
+}

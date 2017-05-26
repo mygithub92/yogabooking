@@ -2,7 +2,7 @@
 
 .container {
   height: 1100rpx;
-  background: url("https://64078752.jinjinyoga.net/static/yoga.png");
+  background: url("https://64078752.jinjinyoga.net/static/yoga.png1");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -29,12 +29,7 @@
   align-items: center;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
+
 
 .userinfo-nickname {
   color: #aaa;

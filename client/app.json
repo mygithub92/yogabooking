@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/course/course",
-    "pages/management/user"
+    "pages/management/user",
+    "pages/management/editUser"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -38,7 +38,15 @@ Page({
           title: '预定成功',
           icon:'success',
           duration: 500
-        })
+        });
+        var pages = getCurrentPages();
+        if(pages.length > 1){
+          var prePage = pages[pages.length - 2];
+          var preData = prePage.data;
+          preData.paymentNumber--;
+          preData.bookingNumber++;
+          prePage.setData(preData)
+        }
       }
     })
   },
@@ -77,7 +85,15 @@ Page({
       title: '取消成功',
       icon: 'success',
       duration: 500
-    })
+    });
+    var pages = getCurrentPages();
+    if (pages.length > 1) {
+      var prePage = pages[pages.length - 2];
+      var preData = prePage.data;
+      preData.paymentNumber++;
+      preData.bookingNumber--;
+      prePage.setData(preData)
+    }
   },
 
   populateSpots: function (courses, periodId) {

@@ -1,8 +1,6 @@
 <view class="container">
-  <view wx:for="{{users}}" wx:for-item="user" wx:key="{{user.id}}" class="content">
-    <view class="header">
-      <image src="{{user.avatar_url}}"></image>
+  <view wx:for="{{users}}" wx:for-item="user" wx:key="{{user.id}}" class="user-item">
+      <image src="{{user.avatar_url}}" class="userinfo-avatar"></image>
       <text class="date-section">{{user.wechat_name}}</text>
-    </view>
-  </view>
+   </view>
 </view>

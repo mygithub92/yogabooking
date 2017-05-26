@@ -50,7 +50,10 @@ Page({
   },
 
   goUserManagement: function(){
-    wx.navigateTo({ url: '../management/user' });
+    var that = this;
+    if (that.data.userInfo.access_level){
+      wx.navigateTo({ url: '../management/user' });
+    }
   },
 
   onLoad: function () {
@@ -69,6 +72,7 @@ Page({
           console.log(res.data);
           userInfo.id = res.data.id;
           userInfo.wechat_id = res.data.wechat_id;
+          userInfo.access_level = res.data.access_level;
           that.setData({
             userInfo: userInfo
           });
