@@ -46,10 +46,6 @@ process.on('uncaughtException', error => {
     console.log(error);
 });
 
-app.get('/yoga/user',function(req,res){
-	res.sendFile(__dirname + '/user.html');
-})
-
 app.post('/yoga/wx/course/book',(req,res) => {
     var userId = req.body.userId;
     var courseId = req.body.courseId;
@@ -156,26 +152,60 @@ app.get('/yoga/wx/payment/retrieve',(req,res) => {
     })
 })
 
-app.post('/yoga/wx/user/add', (req, res) => {
-    console.log(req.body);
-    var userInfo = req.body.userInfo;
-    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
-        var newUser = {
-            wechat_name:userInfo.nickName,
-            avatar_url:userInfo.avatarUrl,
-            wechat_id:data.openid
-        };
-        db.create(db.user,{wechat_id: newUser.wechat_id},newUser,
-            function(){
-                res.end(newUser.wechat_id + " has been added")
-            },
-            function(err){
-                console.log(err);
-                res.end('err')
-            });
-    });
+app.get('/yoga/manage/user/retrieve', (req, res) => {
+    console.log(req.query.managerId);
+    if(db.authenticateUser(req.query.managerId)){
+        db.user.findAll({
+            order:['id'],
+            attributes: { exclude: ['createdAt','updatedAt'] }
+        }).then(users =>{
+            res.end(JSON.stringify(users));
+        })  
+    }
 })
 
+app.post('/yoga/manage/user/update', (req, res) => {
+    console.log(req.body.managerId);
+    console.log(req.body.userInfo);
+    if(db.authenticateUser(req.body.managerId)){
+        db.user.findOne(
+            {where:{id:req.body.userInfo.id}}
+        ).then(foundUser =>{
+            if(foundUser){
+                foundUser.updateAttributes({
+                    full_name:req.body.userInfo.full_name
+                })
+                res.end(JSON.stringify(foundUser));
+            }else{
+                res.end("Error, no user can be found" + JSON.stringify(req.body.userInfo));
+            }
+        })  
+    }
+})
+
+app.post('/yoga/manage/payment/update', (req, res) => {
+    console.log(req.body.managerId);
+    console.log(req.body.userId);
+    console.log(req.body.payment);
+    if(db.authenticateUser(req.body.managerId)){
+        db.payment.findOne(
+            {where:{userId:req.body.userId}}
+        ).then(foundPayment =>{
+            if(foundPayment){
+                foundPayment.updateAttributes({
+                    amount:foundPayment.amount + payment.amount,
+                    times:foundPayment.times + payment.times
+                })
+                res.end(JSON.stringify(foundPayment));
+            }else{
+                db.payment.create({amount:payment.amount,times:payment.times,userId:req.body.userId})
+                .then(function(newPayment){
+                    res.end(JSON.stringify(newPayment));
+                })
+            }
+        })  
+    }
+})
 
 db.sequelize.sync().then(function(){
 	https.createServer(https_options,app).listen(config.port, () => {

@@ -48,6 +48,15 @@ var db = {
                     .catch(onError);
             }
         }).catch(onError);
+    },
+    authenticateUser: function(userId){
+        return true;
+//       db.user.findOne({where:{id:userId}}).then(function(foundUser){
+//           if(foundUser){
+//               return foundUser.access_level > 0;
+//           }
+//           return false;
+//       }) 
     }
 };
 

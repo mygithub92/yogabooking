@@ -49,6 +49,10 @@ Page({
     wx.navigateTo({ url: '../course/course?addressId=' + e.currentTarget.id });
   },
 
+  goUserManagement: function(){
+    wx.navigateTo({ url: '../management/user' });
+  },
+
   onLoad: function () {
     var that = this
     app.getUserInfo(function (userInfo) {
