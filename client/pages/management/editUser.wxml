@@ -1,2 +1,30 @@
-<!--editUser.wxml-->
-<text>{{selectedUser.wechat_name}}</text>
+<view class="container">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="userInfoContent">
+      <view class="userinfo">
+        <image class="userinfo-avatar" src="{{selectedUser.avatar_url}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{selectedUser.wechat_name}}</text>
+      </view>
+    </view>
+
+    <view class="input-section">
+      <view class="label-section">金额</view>
+      <view class="input-area">
+        <input name="amount" placeholder="$" />
+      </view>
+    </view>
+    <view class="input-section">
+      <view class="label-section">次数</view>
+      <view class="input-area">
+        <input name="times" placeholder="" />
+      </view>
+    </view>
+    <view class="btn-area">
+      <button type="primary" formType="submit">提交</button>
+      <button formType="reset">重置</button>
+    </view>
+    <view>
+      <modal title="{{selectedUser.wechat_name}}的金额和次数是" hidden="{{modalHidden}}" confirm-text="确定" cancel-text="取消" bindconfirm="modalBindaconfirm" bindcancel="modalBindcancel">${{values.amount}}, {{values.times}}次</modal>
+    </view>
+  </form>
+</view>

@@ -1,1 +1,29 @@
-/* editUser.wxss */
+.container {
+  height: 1210rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #e1c470;
+}
+
+.btn-area{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width:70%;
+  margin-top: 50rpx;
+}
+
+.input-section{
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+}
+
+.label-section{
+  line-height: 1.6;
+  font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+}
+
+.input-area{
+  line-height: 2;
+  background-color: #f1c470;
+}

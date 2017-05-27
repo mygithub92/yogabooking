@@ -65,8 +65,10 @@ db.coach = sequelize.import(__dirname + "/coach");
 db.payment = sequelize.import(__dirname + "/payment");
 db.course = sequelize.import(__dirname + "/course");
 db.booking = sequelize.import(__dirname + "/booking");
+db.paymentHistory = sequelize.import(__dirname + "/paymentHistory");
 
 db.user.hasMany(db.payment); //This will add the attribute userId to Payment
+db.user.hasMany(db.paymentHistory); //This will add the attribute userId to PaymentHistory
 db.payment.belongsTo(db.user); //Will add a userId attribute to Payment to hold the primary key value for User
 
 db.course.belongsTo(db.coach);

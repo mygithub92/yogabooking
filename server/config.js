@@ -7,9 +7,9 @@ module.exports = {
     db:{
         host:'10.66.227.99',
         port:3306,
-        name:'yoga_booking1',
+        name:'yoga_booking',
         username:'root',
         password:'BBBBBBHHINci1z'
     },
-    intialize:false
+    intialize:true
 };

@@ -1,5 +1,15 @@
-CREATE TRIGGER `reduce_pay_number_after_booking` AFTER INSERT ON `bookings`
- FOR EACH ROW UPDATE `yoga_booking1`.`payments` set times = times -1 WHERE userId = NEW.userId
+DROP TRIGGER `reduce_pay_number_after_booking`
+DROP TRIGGER `increas_pay_number_after_cancel`
+
+
+IF((SELECT id FROM `payments` WHERE userId = NEW.userId)>0) THEN
+	UPDATE `payments` set times = times - 1 WHERE userId = NEW.userId;
+ELSE
+	INSERT `payments` (`id`, `amount`, `times`, `createdAt`, `updatedAt`,`userId`) VALUES
+(DEFAULT, 0, -1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,NEW.userId);
+END IF
+
+
 
 CREATE TRIGGER `increas_pay_number_after_cancel` AFTER DELETE ON `bookings`
- FOR EACH ROW UPDATE `yoga_booking1`.`payments` set times = times + 1 WHERE userId = OLD.userId
+ FOR EACH ROW UPDATE `payments` set times = times + 1 WHERE userId = OLD.userId

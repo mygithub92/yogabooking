@@ -189,22 +189,26 @@ app.post('/yoga/manage/payment/update', (req, res) => {
     console.log(req.body.userId);
     console.log(req.body.payment);
     if(db.authenticateUser(req.body.managerId)){
-        db.payment.findOne(
-            {where:{userId:req.body.userId}}
-        ).then(foundPayment =>{
-            if(foundPayment){
-                foundPayment.updateAttributes({
-                    amount:foundPayment.amount + payment.amount,
-                    times:foundPayment.times + payment.times
-                })
-                res.end(JSON.stringify(foundPayment));
-            }else{
-                db.payment.create({amount:payment.amount,times:payment.times,userId:req.body.userId})
-                .then(function(newPayment){
-                    res.end(JSON.stringify(newPayment));
-                })
-            }
-        })  
+        db.paymentHistory.create({amount:req.body.payment.amount,userId:req.body.userId,operatorId:req.body.managerId}).then(newPaymentHistory => {
+            db.payment.findOne(
+                {where:{userId:req.body.userId}}
+            ).then(foundPayment =>{
+                if(foundPayment){
+                    foundPayment.updateAttributes({
+                        amount:foundPayment.amount + req.body.payment.amount,
+                        times:foundPayment.times + req.body.payment.times,
+                        operatorId:req.body.managerId
+                    })
+                    res.end(JSON.stringify(foundPayment));
+                }else{
+                    db.payment.create({amount:req.body.payment.amount,times:req.body.payment.times,userId:req.body.userId,operatorId:req.body.managerId})
+                    .then(function(newPayment){
+                        res.end(JSON.stringify(newPayment));
+                    })
+                }
+            })  
+        });
+        
     }
 })
 

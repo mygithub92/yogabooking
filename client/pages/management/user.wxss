@@ -1,17 +1,25 @@
 .container {
+  height: 1210rpx;
   display: flex;
   flex-direction: column;
+  background-color: #e1c470;
 }
 
 .user-item{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  background-color: #e88243;
+  border: 1px solid #e1c470;
+  border-radius: 5rpx;
 }
 
 .userinfo-avatar {
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  padding-right: 25rpx;
 }
+
+.nickname-section{
+  margin: 29rpx 12rpx;
+ }
