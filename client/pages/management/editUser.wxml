@@ -1,2 +1,2 @@
 <!--editUser.wxml-->
-<text>editUser.wxml</text>
+<text>{{selectedUser.wechat_name}}</text>

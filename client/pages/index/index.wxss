@@ -2,7 +2,7 @@
 
 .container {
   height: 1100rpx;
-  background: url("https://64078752.jinjinyoga.net/static/yoga.png1");
+  background: url("https://64078752.jinjinyoga.net/static/yoga.png");
   background-size: cover;
   background-repeat: no-repeat;
 }

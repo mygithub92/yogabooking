@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    users:[]
+    users:[],
+    selectedUser:{}
   },
 
   retrieveUser:function(managerId){
@@ -27,6 +28,18 @@ Page({
     })
   },
 
+  edit: function(e){
+    var that = this;
+    for(var i=0;i<that.data.users.length;i++){
+      if (that.data.users[i].id == e.currentTarget.id){
+        that.data.selectedUser = that.data.users[i];
+        break;
+      }
+    }
+    wx.navigateTo({
+      url: './editUser',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

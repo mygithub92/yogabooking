@@ -156,6 +156,7 @@ app.get('/yoga/manage/user/retrieve', (req, res) => {
     console.log(req.query.managerId);
     if(db.authenticateUser(req.query.managerId)){
         db.user.findAll({
+            where:{access_level:0},
             order:['id'],
             attributes: { exclude: ['createdAt','updatedAt'] }
         }).then(users =>{

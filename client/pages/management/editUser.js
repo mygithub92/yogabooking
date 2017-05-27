@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    selectedUser:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    var pages = getCurrentPages();
+    if (pages.length > 1) {
+      var prePage = pages[pages.length - 2];
+      that.setData({ selectedUser: prePage.data.selectedUser})
+    }
   },
 
   /**

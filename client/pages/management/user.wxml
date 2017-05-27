@@ -1,6 +1,9 @@
 <view class="container">
-  <view wx:for="{{users}}" wx:for-item="user" wx:key="{{user.id}}" class="user-item">
-      <image src="{{user.avatar_url}}" class="userinfo-avatar"></image>
+  <block wx:for="{{users}}" wx:for-item="user" wx:key="{{user.id}}">
+    <view class="user-item" bindtap="edit" id="{{user.id}}">
+      <image src="{{user.avatar_url}}" class="userinfo-avatar">
+      </image>
       <text class="date-section">{{user.wechat_name}}</text>
-   </view>
+    </view>
+  </block>
 </view>
