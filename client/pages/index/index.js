@@ -58,6 +58,11 @@ Page({
     }
   },
 
+  onShow: function(e){
+    var that = this;
+    that.retrievePayment();
+  },
+
   onLoad: function () {
     var that = this
     app.getUserInfo(function (userInfo) {

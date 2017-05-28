@@ -15,13 +15,13 @@
     <view class="input-section">
       <view class="label-section">金额</view>
       <view class="input-area">
-        <input name="amount" placeholder="$" />
+        <input name="amount" type="number" placeholder="$" />
       </view>
     </view>
     <view class="input-section">
       <view class="label-section">次数</view>
       <view class="input-area">
-        <input name="times" placeholder="" />
+        <input name="times" type="number" placeholder="" />
       </view>
     </view>
     <view class="btn-area" hidden="{{hideButtons}}">

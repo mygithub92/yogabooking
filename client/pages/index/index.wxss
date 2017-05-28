@@ -1,7 +1,8 @@
 /**app.wxss**/
 
 .container {
-  height: 1120rpx;
+  height: 1100rpx;
+  min-height: 1100rpx;
   background: url("https://64078752.jinjinyoga.net/static/yoga.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -10,7 +11,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  padding: 30rpx 0;
+  padding: 0 0 30rpx 0;
   box-sizing: border-box;
   height: 100%;
   justify-content: space-between;
@@ -39,10 +40,6 @@
   border-radius: 5rpx;
 }
 
-.usermotto {
-  margin-top: 200px;
-}
-
 .message-content {
   display: flex;
   flex-direction: column;
@@ -50,6 +47,7 @@
   align-items: stretch;
   text-shadow: 3px 2px #404040;
   color: white;
+  margin-bottom: 90rpx;
 }
 
 .message-item{
