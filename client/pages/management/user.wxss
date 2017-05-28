@@ -1,17 +1,10 @@
-.container {
-  height: 1210rpx;
-  display: flex;
-  flex-direction: column;
-  background-color: #e1c470;
-}
-
 .user-item{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   background-color: #e88243;
   border: 1px solid #e1c470;
-  border-radius: 5rpx;
+  border-radius: 15rpx;
 }
 
 .userinfo-avatar {

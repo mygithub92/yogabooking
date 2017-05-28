@@ -45,6 +45,8 @@ Page({
           var preData = prePage.data;
           preData.paymentNumber--;
           preData.bookingNumber++;
+          app.globalData.paymentNumber--;
+          app.globalData.bookingNumber++;
           prePage.setData(preData)
         }
       }
@@ -92,6 +94,8 @@ Page({
       var preData = prePage.data;
       preData.paymentNumber++;
       preData.bookingNumber--;
+      app.globalData.paymentNumber++;
+      app.globalData.bookingNumber--;
       prePage.setData(preData)
     }
   },

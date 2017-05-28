@@ -41,6 +41,8 @@ Page({
           bookingNumber: res.data.bookingNumber,
           paymentNumber: res.data.paymentNumber
         });
+        app.globalData.bookingNumber = res.data.bookingNumber;
+        app.globalData.paymentNumber = res.data.paymentNumber;
       }
     })
   },
@@ -69,8 +71,9 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
+          that.retrieveAddress();
           console.log(res.data);
-          userInfo.id = res.data.id;
+          userInfo.id = app.globalData.userInfo.id = res.data.id;
           userInfo.wechat_id = res.data.wechat_id;
           userInfo.access_level = res.data.access_level;
           that.setData({
@@ -81,7 +84,5 @@ Page({
         }
       })
     });
-
-    that.retrieveAddress();
   }
 })

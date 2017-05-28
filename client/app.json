@@ -3,12 +3,33 @@
     "pages/index/index",
     "pages/course/course",
     "pages/management/user",
-    "pages/management/editUser"
+    "pages/management/editUser",
+    "pages/user/info"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#e6b475",
     "navigationBarTitleText": "JIN YOGA",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icon_component.png",
+        "selectedIconPath": "images/icon_component_HL.png",
+        "text": "课程"
+      },
+      {
+        "pagePath": "pages/user/info",
+        "iconPath": "images/icon_API.png",
+        "selectedIconPath": "images/icon_API_HL.png",
+        "text": "自己"
+      }
+    ]
   }
 }

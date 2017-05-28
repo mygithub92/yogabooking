@@ -1,0 +1,25 @@
+.past-course{
+  background-color: #e88243;
+  border: 1px solid #e1c470;
+  border-radius: 15rpx;
+  padding: 25rpx;
+}
+
+.future-course{
+  background-color: #e88243;
+  border: 1px solid #e1c470;
+  border-radius: 15rpx;
+  padding: 25rpx;
+}
+
+.future-course:first-child{
+  margin-top: 30rpx;
+}
+
+.message-section{
+  margin-left: 25rpx
+}
+
+.address-text{
+  font-size: 78%;
+}

@@ -1,20 +1,14 @@
-// editUser.js
 var app = getApp()
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-    managerId:0,
+    managerId: 0,
     selectedUser: {},
     modalHidden: true,
-    values: {}
+    values: {},
+    hideButtons:false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     var that = this;
     var pages = getCurrentPages();
@@ -45,70 +39,41 @@ Page({
       header: {
         'Content-Type': 'application/json'
       },
-      data:{
+      data: {
         managerId: that.data.managerId,
         userId: that.data.selectedUser.id,
         payment: that.data.values
       },
-      method:"POST",
+      method: "POST",
       success: function (res) {
         console.log(res.data);
-        wx.navigateBack();
+        if (that.data.selectedUser.payments.length > 0){
+          that.data.selectedUser.payments[0].times = res.data.times;
+        }else{
+          that.data.selectedUser.payments[0] = res.data;
+        }
+        that.setData({
+          modalHidden: true,
+          selectedUser: that.data.selectedUser,
+          hideButtons:true
+        })
+        var pages = getCurrentPages();
+        if (pages.length > 1) {
+          var prePage = pages[pages.length - 2];
+          if (prePage.data.selectedUser.payments.length > 0){
+            prePage.data.selectedUser.payments[0].times = res.data.times;
+          }else{
+            prePage.data.selectedUser.payments[0] = res.data;
+          }
+        }
       }
     })
-    
+
   },
   modalBindcancel: function () {
-    this.setData({
-      modalHidden: !this.data.modalHidden
+    var that = this;
+    that.setData({
+      modalHidden: !that.data.modalHidden
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

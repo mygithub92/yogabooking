@@ -96,7 +96,7 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
         }, {});
 
         var resultMap = Object.keys(group_to_values).map(function(key){
-            var dayNumber  =moment(key).day();
+            var dayNumber = moment(key).day();
             return {course_date: key + ' ' + Util.days_cn[dayNumber], periods: group_to_values[key]};
         });
 
@@ -157,6 +157,9 @@ app.get('/yoga/manage/user/retrieve', (req, res) => {
     if(db.authenticateUser(req.query.managerId)){
         db.user.findAll({
             where:{access_level:0},
+            include: [{
+                model: db.payment
+            }],
             order:['id'],
             attributes: { exclude: ['createdAt','updatedAt'] }
         }).then(users =>{
@@ -195,8 +198,8 @@ app.post('/yoga/manage/payment/update', (req, res) => {
             ).then(foundPayment =>{
                 if(foundPayment){
                     foundPayment.updateAttributes({
-                        amount:foundPayment.amount + req.body.payment.amount,
-                        times:foundPayment.times + req.body.payment.times,
+                        amount:parseInt(req.body.payment.amount),
+                        times: parseInt(foundPayment.times) + parseInt(req.body.payment.times),
                         operatorId:req.body.managerId
                     })
                     res.end(JSON.stringify(foundPayment));
@@ -210,6 +213,40 @@ app.post('/yoga/manage/payment/update', (req, res) => {
         });
         
     }
+})
+
+app.get('/yoga/wx/user/details',(req,res) => {
+    db.payment.findOne({where:{userId:req.query.userId}}).then(foundPayment => {
+        var result = {lastPayment:0,paymentNumber: 0,bookingNumber:0};
+        
+        if(foundPayment){
+            result.lastPayment = foundPayment.amount;
+            result.paymentNumber = foundPayment.times;
+        }
+        db.booking.findAll({where:{userId:req.query.userId}}).then(foundBookings => {
+            if(foundBookings){
+                var courseIds = foundBookings.map(function(booking){
+                   return booking.courseId;      
+                })
+                db.course.findAll({
+                    where:{id:{$in:courseIds},course_date:{$lt:new Date()}},
+                    order:['course_date','start_time'],
+                    attributes:['course_date','start_time','end_time'],
+                    include:[{model:db.address}],
+                    limit:5}).then(foundPastCourse =>{
+                        result.pastCourse = foundPastCourse;
+                        db.course.findAll({
+                            where:{id:{$in:courseIds},course_date:{$gte:new Date()}},
+                            order:['course_date','start_time'],
+                            include:[{model:db.address}],
+                            attributes:['course_date','start_time','end_time']}).then(foundFutureCourse =>{
+                                result.futureCourse = foundFutureCourse;
+                                res.end(JSON.stringify(result));
+                    }) 
+                })     
+            }
+        })
+    })
 })
 
 db.sequelize.sync().then(function(){

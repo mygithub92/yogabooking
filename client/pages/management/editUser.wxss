@@ -1,29 +1,27 @@
-.container {
-  height: 1210rpx;
-  display: flex;
-  flex-direction: column;
-  background-color: #e1c470;
-}
-
-.btn-area{
+.btn-area {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width:70%;
+  width: 100%;
   margin-top: 50rpx;
 }
 
-.input-section{
-  margin-top: 20rpx;
-  margin-left: 20rpx;
+.input-section {
+  margin:40rpx 80rpx;
 }
 
-.label-section{
+.label-section {
   line-height: 1.6;
   font-family: -apple-system-font, "Helvetica Neue", sans-serif;
 }
 
-.input-area{
-  line-height: 2;
+.input-area {
   background-color: #f1c470;
+  border-radius: 15rpx;
+}
+
+input {
+  padding: 9px;
+  font-size: 23px;
+  border-radius: 5rpx;
 }

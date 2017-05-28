@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="userInfoContent">
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{globalData.userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{globalData.userInfo.nickName}}</text>
+    </view>
+  </view>
+  <view class="message-section">
+    <view>
+      <text>您上一次预存了 ${{bookingInfo.lastPayment}}</text>
+    </view>
+    <view>
+      <text>余额还可以预定 {{globalData.paymentNumber}} 次瑜伽课</text>
+    </view>
+  </view>
+  <view>
+    <block wx:for="{{bookingInfo.pastCourse}}" wx:for-item="pastCourse" wx:key="{{pastCourse.id}}">
+      <view class="past-course">
+        <text class="userinfo-nickname">{{pastCourse.course_date}} [{{pastCourse.start_time}} - {{pastCourse.end_time}}]</text>
+        <view>
+          <text class="userinfo-nickname address-text">@ {{pastCourse.address.address}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view>
+    <block wx:for="{{bookingInfo.futureCourse}}" wx:for-item="futureCourse" wx:key="{{futureCourse.id}}">
+      <view class="future-course">
+        <text class="user-motto">{{futureCourse.course_date}} [{{futureCourse.start_time}} - {{futureCourse.end_time}}]</text>
+        <view>
+          <text class="userinfo-nickname address-text">@ {{futureCourse.address.address}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

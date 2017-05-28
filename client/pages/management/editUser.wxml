@@ -6,7 +6,12 @@
         <text class="userinfo-nickname">{{selectedUser.wechat_name}}</text>
       </view>
     </view>
-
+    <view class="input-section">
+      <view class="label-section">剩余次数</view>
+      <view class="input-area">
+        <view style="height:40px;padding-top: 10rpx;">{{selectedUser.payments[0].times}}</view>
+      </view>
+    </view>
     <view class="input-section">
       <view class="label-section">金额</view>
       <view class="input-area">
@@ -19,7 +24,7 @@
         <input name="times" placeholder="" />
       </view>
     </view>
-    <view class="btn-area">
+    <view class="btn-area" hidden="{{hideButtons}}">
       <button type="primary" formType="submit">提交</button>
       <button formType="reset">重置</button>
     </view>

@@ -85,6 +85,7 @@
 
 .button-section {
   width: 40%;
+  margin-bottom: 20rpx;
 }
 
 .button-group {

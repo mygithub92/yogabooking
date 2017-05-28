@@ -3,6 +3,13 @@ page {
   font-family: -apple-system-font, "Helvetica Neue", sans-serif;
 }
 
+.container {
+  min-height: 1210rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #e1c470;
+}
+
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;

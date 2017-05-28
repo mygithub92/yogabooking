@@ -1,7 +1,7 @@
 /**app.wxss**/
 
 .container {
-  height: 1100rpx;
+  height: 1120rpx;
   background: url("https://64078752.jinjinyoga.net/static/yoga.png");
   background-size: cover;
   background-repeat: no-repeat;
