@@ -10,6 +10,5 @@ module.exports = {
         name:'yoga_booking',
         username:'root',
         password:'BBBBBBHHINci1z'
-    },
-    intialize:true
+    }
 };
