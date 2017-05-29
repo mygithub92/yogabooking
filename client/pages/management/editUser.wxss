@@ -7,10 +7,14 @@
 }
 
 .input-section {
-  margin:40rpx 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin:20rpx 20rpx;
 }
 
 .label-section {
+  padding-top:10rpx;
   line-height: 1.6;
   font-family: -apple-system-font, "Helvetica Neue", sans-serif;
 }
@@ -18,6 +22,10 @@
 .input-area {
   background-color: #f1c470;
   border-radius: 15rpx;
+}
+
+.text-area {
+  background-color: #e1c470;
 }
 
 input {

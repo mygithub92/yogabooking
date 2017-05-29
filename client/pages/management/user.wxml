@@ -4,6 +4,9 @@
       <image src="{{user.avatar_url}}" class="userinfo-avatar">
       </image>
       <text class="nickname-section">{{user.wechat_name}}</text>
+      <view class="times-remain">
+      <text class="nickname-section">{{user.payments[0].times}}</text>
+      </view>
     </view>
   </block>
 </view>

@@ -8,8 +8,8 @@
     </view>
     <view class="input-section">
       <view class="label-section">剩余次数</view>
-      <view class="input-area">
-        <view style="height:40px;padding-top: 10rpx;">{{selectedUser.payments[0].times}}</view>
+      <view class="text-area">
+        <input value="{{selectedUser.payments[0].times}}" />
       </view>
     </view>
     <view class="input-section">

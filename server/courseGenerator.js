@@ -3,7 +3,7 @@ var moment = require('moment');
 const config = require('./config');
 const util = require('util');
 var Promise = require('promise');
-
+var logger = require("./utils/logger");
 var dayInMillisecond = 86400000;
 var querySql = "SELECT id FROM `courses` WHERE `course_date` = '%s' AND addressId = %d and coachId= %d LIMIT 1";
 var insertSql = "INSERT INTO `courses`(`id`, `course_date`, `start_time`, `end_time`, `spot_number`, `createdAt`, `updatedAt`, `coachId`, `addressId`) VALUES (DEFAULT,'%s','%s','%s',%d,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,%d,%d)";
@@ -52,6 +52,7 @@ var courseInfo = [
                                 if(foundCourse.length === 0){
                                     var fullInsertSql = util.format(insertSql,courseStartTime,period.start,period.end,period.spotNumber,coachId,addressId);
                                     db.sequelize.query(fullInsertSql);
+                                    logger.info('Done');
                                 }
                             })})(courseDetails.address.id,courseDetails.coach.id,courseStartTime,period)
                         )
@@ -99,6 +100,7 @@ var courseInfo = [
                 db.sequelize.query(sql,{type: db.sequelize.QueryTypes.SELECT}).then(function(maxDate){
                     var d = moment(maxDate[0].maxDate);
                     d.add(1,'day');
+                    logger.info('Checking the date of ' + d + '..........');
                     courseGenerator(d,1)
                 })
             },dayInMillisecond/2);

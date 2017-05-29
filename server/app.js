@@ -2,11 +2,10 @@
 
 require('./globals');
 require('./setup-qcloud-sdk');
-
+var logger = require("./utils/logger");
 const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
 const config = require('./config');
 var path = require('path');
 var moment = require('moment');
@@ -31,7 +30,7 @@ app.set('view engine', 'ejs');
 app.disable('x-powered-by');
 
 // 记录请求日志
-app.use(morgan('tiny'));
+app.use(require('morgan')({ "stream": logger.stream }));
 
 // parse `application/x-www-form-urlencoded`
 app.use(bodyParser.urlencoded({ extended: true }));
