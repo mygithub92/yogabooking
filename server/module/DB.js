@@ -1,5 +1,6 @@
 const config = require('../config');
 const Sequelize = require('sequelize');
+var logger = require("../utils/logger");
 
 var sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
     host: config.db.host,
@@ -22,7 +23,7 @@ sequelize
   });
 
 var db = {
-    var operators :[],
+    operators :[],
     
     updateOrCreate: function(model, where, newItem, onCreate, onUpdate, onError) {
         // First try to find the record
@@ -55,8 +56,10 @@ var db = {
     loadOperator: function(){
         db.user.findAll({
             where:{access_level:1},
-            attributes:['id']}).then(function(foundOperator){
-                operators = foundOperator;
+            attributes:['id']}).then((foundOperator) => {
+            operators = foundOperator.map(operator => {
+                return operator.id;
+            })
         })
     },
     
@@ -67,7 +70,10 @@ var db = {
         }else{
             operatorId = req.body.managerId;
         }
-        req.accessable = (operators.indexOf(operatorId) > -1);
+        if(operatorId){
+            req.accessable = (operators.indexOf(parseInt(operatorId)) > -1);
+            logger.info("Operator " + operatorId + " is doing......");
+        }
         next();
     }
 };

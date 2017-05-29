@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes'));
-app.user(db.authenticateUser);
+app.use(db.authenticateUser);
 
 // 打印异常日志
 process.on('uncaughtException', error => {
@@ -51,7 +51,8 @@ app.post('/yoga/wx/course/book',(req,res) => {
     var courseId = req.body.courseId;
     db.booking.findOrCreate({where:{userId:userId,courseId:courseId}}).then((booking) =>{
         if(booking[1]){
-            res.end(JSON.stringify(booking[0].getDataValue('id')));
+            logger.info("User " + userId + " booked a course " + booking[0].id + " at [" + new Date() + "]");
+            res.end(JSON.stringify(booking[0].id));
         }else{
             res.status(404).json({message:"Rebooking: courseId: " + courseId + " and userId: " + userId})
             console.log("Rebooking: courseId: " + courseId + " and userId: " + userId);
@@ -62,7 +63,7 @@ app.post('/yoga/wx/course/book',(req,res) => {
 
 app.post('/yoga/wx/course/cancel',(req,res) => {
     var bookingId = req.body.bookingId;
-    
+    logger.info("Booking " + bookingId + " got cancelled at [" + new Date() + "]");
     db.booking.destroy({where:{id:bookingId}}).then((deletedRecord) =>{
         if(deletedRecord === 1){
             res.status(200).json({message:"Deleted successfully"});
@@ -153,8 +154,7 @@ app.get('/yoga/wx/payment/retrieve',(req,res) => {
 })
 
 app.get('/yoga/manage/user/retrieve', (req, res) => {
-    console.log(req.query.managerId);
-    if(res.accessable){
+    if(req.accessable){
         db.user.findAll({
             where:{access_level:0},
             include: [{
@@ -170,7 +170,7 @@ app.get('/yoga/manage/user/retrieve', (req, res) => {
 
 app.post('/yoga/manage/user/update', (req, res) => {
     console.log(req.body.userInfo);
-    if(res.accessable){
+    if(req.accessable){
         db.user.findOne(
             {where:{id:req.body.userInfo.id}}
         ).then(foundUser =>{
@@ -189,7 +189,8 @@ app.post('/yoga/manage/user/update', (req, res) => {
 app.post('/yoga/manage/payment/update', (req, res) => {
     console.log(req.body.userId);
     console.log(req.body.payment);
-    if(res.accessable){
+    logger.info(" topping up for user " + req.body.userId + " of [amount:" + req.body.payment.amount + ", times:" + req.body.payment.times + "] at " + new Date());
+    if(req.accessable){
         db.paymentHistory.create({amount:req.body.payment.amount,userId:req.body.userId,operatorId:req.body.managerId}).then(newPaymentHistory => {
             db.payment.findOne(
                 {where:{userId:req.body.userId}}
