@@ -39,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes'));
+app.user(db.authenticateUser);
 
 // 打印异常日志
 process.on('uncaughtException', error => {
@@ -153,7 +154,7 @@ app.get('/yoga/wx/payment/retrieve',(req,res) => {
 
 app.get('/yoga/manage/user/retrieve', (req, res) => {
     console.log(req.query.managerId);
-    if(db.authenticateUser(req.query.managerId)){
+    if(res.accessable){
         db.user.findAll({
             where:{access_level:0},
             include: [{
@@ -168,9 +169,8 @@ app.get('/yoga/manage/user/retrieve', (req, res) => {
 })
 
 app.post('/yoga/manage/user/update', (req, res) => {
-    console.log(req.body.managerId);
     console.log(req.body.userInfo);
-    if(db.authenticateUser(req.body.managerId)){
+    if(res.accessable){
         db.user.findOne(
             {where:{id:req.body.userInfo.id}}
         ).then(foundUser =>{
@@ -187,10 +187,9 @@ app.post('/yoga/manage/user/update', (req, res) => {
 })
 
 app.post('/yoga/manage/payment/update', (req, res) => {
-    console.log(req.body.managerId);
     console.log(req.body.userId);
     console.log(req.body.payment);
-    if(db.authenticateUser(req.body.managerId)){
+    if(res.accessable){
         db.paymentHistory.create({amount:req.body.payment.amount,userId:req.body.userId,operatorId:req.body.managerId}).then(newPaymentHistory => {
             db.payment.findOne(
                 {where:{userId:req.body.userId}}
@@ -210,7 +209,6 @@ app.post('/yoga/manage/payment/update', (req, res) => {
                 }
             })  
         });
-        
     }
 })
 
@@ -249,6 +247,7 @@ app.get('/yoga/wx/user/details',(req,res) => {
 })
 
 db.sequelize.sync().then(function(){
+    db.loadOperator();
 	https.createServer(https_options,app).listen(config.port, () => {
 	   console.log('Express server listening on port: %s', config.port);
 	});

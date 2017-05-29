@@ -22,6 +22,8 @@ sequelize
   });
 
 var db = {
+    var operators :[],
+    
     updateOrCreate: function(model, where, newItem, onCreate, onUpdate, onError) {
         // First try to find the record
         model.findOne({where: where}).then(function (foundItem) {
@@ -49,13 +51,24 @@ var db = {
             }
         }).catch(onError);
     },
-    authenticateUser: function(userId){
-        return db.user.findOne({where:{id:userId}}).then(function(foundUser){
-           if(foundUser){
-               return foundUser.access_level > 0;
-           }
-           return false;
-       }) 
+    
+    loadOperator: function(){
+        db.user.findAll({
+            where:{access_level:1},
+            attributes:['id']}).then(function(foundOperator){
+                operators = foundOperator;
+        })
+    },
+    
+    authenticateUser: function(req,res,next){
+        var operatorId;
+        if(req.query){
+            operatorId = req.query.managerId;
+        }else{
+            operatorId = req.body.managerId;
+        }
+        req.accessable = (operators.indexOf(operatorId) > -1);
+        next();
     }
 };
 
