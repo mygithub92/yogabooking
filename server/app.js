@@ -39,37 +39,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes'));
-app.use(db.authenticateUser);
+app.use('/yoga/manage/*',db.authenticateUser);
 
 // 打印异常日志
 process.on('uncaughtException', error => {
     console.log(error);
 });
 
-app.post('/yoga/wx/course/book',(req,res) => {
-    var userId = req.body.userId;
-    var courseId = req.body.courseId;
-    db.booking.findOrCreate({where:{userId:userId,courseId:courseId}}).then((booking) =>{
-        if(booking[1]){
-            logger.info("User " + userId + " booked a course " + booking[0].id + " at [" + new Date() + "]");
-            res.end(JSON.stringify(booking[0].id));
-        }else{
-            res.status(404).json({message:"Rebooking: courseId: " + courseId + " and userId: " + userId})
-            console.log("Rebooking: courseId: " + courseId + " and userId: " + userId);
-        }
+app.post('/yoga/wx/user/verify',(req,res) => {
+    var userInfo = req.body.userInfo;
+    
+    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
+        db.user.findOrCreate({
+            where:{wechat_id: data.openid},
+            defaults:{
+                wechat_name:userInfo.nickName,
+                avatar_url:userInfo.avatarUrl
+            }}).then((result) => {
+                if(result[1]){
+                   console.log("New user of " + result[0].getDataValue('id') + ", " + result[0].getDataValue('nickName') + " has been created") 
+                }
+                res.end(JSON.stringify(result[0]));
+            })
+    });
 
-    })
 })
 
-app.post('/yoga/wx/course/cancel',(req,res) => {
-    var bookingId = req.body.bookingId;
-    logger.info("Booking " + bookingId + " got cancelled at [" + new Date() + "]");
-    db.booking.destroy({where:{id:bookingId}}).then((deletedRecord) =>{
-        if(deletedRecord === 1){
-            res.status(200).json({message:"Deleted successfully"});
-        }else{
-            res.status(404).json({message:"record not found"})
-        }
+app.get('/yoga/wx/address/retrieve',(req,res) => {
+    db.address.findAll().then(result => {
+        res.end(JSON.stringify(result));
     })
 })
 
@@ -105,29 +103,30 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
     })
 })
 
-app.post('/yoga/wx/user/verify',(req,res) => {
-    var userInfo = req.body.userInfo;
-    
-    util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
-        db.user.findOrCreate({
-            where:{wechat_id: data.openid},
-            defaults:{
-                wechat_name:userInfo.nickName,
-                avatar_url:userInfo.avatarUrl
-            }}).then((result) => {
-                if(result[1]){
-                   console.log("New user of " + result[0].getDataValue('id') + ", " + result[0].getDataValue('nickName') + " has been created") 
-                }
-                res.end(JSON.stringify(result[0]));
-            })
-    });
+app.post('/yoga/wx/course/book',(req,res) => {
+    var userId = req.body.userId;
+    var courseId = req.body.courseId;
+    db.booking.findOrCreate({where:{userId:userId,courseId:courseId}}).then((booking) =>{
+        if(booking[1]){
+            logger.info("User " + userId + " booked a course " + booking[0].id + " at [" + new Date() + "]");
+            res.end(JSON.stringify(booking[0].id));
+        }else{
+            res.status(404).json({message:"Rebooking: courseId: " + courseId + " and userId: " + userId})
+            console.log("Rebooking: courseId: " + courseId + " and userId: " + userId);
+        }
 
+    })
 })
 
-
-app.get('/yoga/wx/address/retrieve',(req,res) => {
-    db.address.findAll().then(result => {
-        res.end(JSON.stringify(result));
+app.post('/yoga/wx/course/cancel',(req,res) => {
+    var bookingId = req.body.bookingId;
+    logger.info("Booking " + bookingId + " got cancelled at [" + new Date() + "]");
+    db.booking.destroy({where:{id:bookingId}}).then((deletedRecord) =>{
+        if(deletedRecord === 1){
+            res.status(200).json({message:"Deleted successfully"});
+        }else{
+            res.status(404).json({message:"record not found"})
+        }
     })
 })
 
@@ -151,66 +150,6 @@ app.get('/yoga/wx/payment/retrieve',(req,res) => {
             }
         })
     })
-})
-
-app.get('/yoga/manage/user/retrieve', (req, res) => {
-    if(req.accessable){
-        db.user.findAll({
-            where:{access_level:0},
-            include: [{
-                model: db.payment
-            }],
-            order:['id'],
-            attributes: { exclude: ['createdAt','updatedAt'] }
-        }).then(users =>{
-            res.end(JSON.stringify(users));
-        })  
-    }
-})
-
-app.post('/yoga/manage/user/update', (req, res) => {
-    console.log(req.body.userInfo);
-    if(req.accessable){
-        db.user.findOne(
-            {where:{id:req.body.userInfo.id}}
-        ).then(foundUser =>{
-            if(foundUser){
-                foundUser.updateAttributes({
-                    full_name:req.body.userInfo.full_name
-                })
-                res.end(JSON.stringify(foundUser));
-            }else{
-                res.end("Error, no user can be found" + JSON.stringify(req.body.userInfo));
-            }
-        })  
-    }
-})
-
-app.post('/yoga/manage/payment/update', (req, res) => {
-    console.log(req.body.userId);
-    console.log(req.body.payment);
-    logger.info(" topping up for user " + req.body.userId + " of [amount:" + req.body.payment.amount + ", times:" + req.body.payment.times + "] at " + new Date());
-    if(req.accessable){
-        db.paymentHistory.create({amount:req.body.payment.amount,userId:req.body.userId,operatorId:req.body.managerId}).then(newPaymentHistory => {
-            db.payment.findOne(
-                {where:{userId:req.body.userId}}
-            ).then(foundPayment =>{
-                if(foundPayment){
-                    foundPayment.updateAttributes({
-                        amount:parseInt(req.body.payment.amount),
-                        times: parseInt(foundPayment.times) + parseInt(req.body.payment.times),
-                        operatorId:req.body.managerId
-                    })
-                    res.end(JSON.stringify(foundPayment));
-                }else{
-                    db.payment.create({amount:req.body.payment.amount,times:req.body.payment.times,userId:req.body.userId,operatorId:req.body.managerId})
-                    .then(function(newPayment){
-                        res.end(JSON.stringify(newPayment));
-                    })
-                }
-            })  
-        });
-    }
 })
 
 app.get('/yoga/wx/user/details',(req,res) => {
@@ -245,6 +184,59 @@ app.get('/yoga/wx/user/details',(req,res) => {
             }
         })
     })
+})
+
+app.get('/yoga/manage/user/retrieve', (req, res) => {
+    db.user.findAll({
+        where:{access_level:0},
+        include: [{
+            model: db.payment
+        }],
+        order:['id'],
+        attributes: { exclude: ['createdAt','updatedAt'] }
+    }).then(users =>{
+        res.end(JSON.stringify(users));
+    })  
+})
+
+app.post('/yoga/manage/payment/update', (req, res) => {
+    console.log(req.body.userId);
+    console.log(req.body.payment);
+    logger.info(" topping up for user " + req.body.userId + " of [amount:" + req.body.payment.amount + ", times:" + req.body.payment.times + "] at " + new Date());
+    db.paymentHistory.create({amount:req.body.payment.amount,userId:req.body.userId,operatorId:req.body.managerId}).then(newPaymentHistory => {
+        db.payment.findOne(
+            {where:{userId:req.body.userId}}
+        ).then(foundPayment =>{
+            if(foundPayment){
+                foundPayment.updateAttributes({
+                    amount:parseInt(req.body.payment.amount),
+                    times: parseInt(foundPayment.times) + parseInt(req.body.payment.times),
+                    operatorId:req.body.managerId
+                })
+                res.end(JSON.stringify(foundPayment));
+            }else{
+                db.payment.create({amount:req.body.payment.amount,times:req.body.payment.times,userId:req.body.userId,operatorId:req.body.managerId})
+                .then(function(newPayment){
+                    res.end(JSON.stringify(newPayment));
+                })
+            }
+        })  
+    });
+})
+
+app.post('/yoga/manage/user/update', (req, res) => {
+    db.user.findOne(
+        {where:{id:req.body.userInfo.id}}
+    ).then(foundUser =>{
+        if(foundUser){
+            foundUser.updateAttributes({
+                full_name:req.body.userInfo.full_name
+            })
+            res.end(JSON.stringify(foundUser));
+        }else{
+            res.end("Error, no user can be found" + JSON.stringify(req.body.userInfo));
+        }
+    })  
 })
 
 db.sequelize.sync().then(function(){

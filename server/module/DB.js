@@ -71,10 +71,15 @@ var db = {
             operatorId = req.body.managerId;
         }
         if(operatorId){
-            req.accessable = (operators.indexOf(parseInt(operatorId)) > -1);
-            logger.info("Operator " + operatorId + " is doing......");
+            var hasAccess = (operators.indexOf(parseInt(operatorId)) > -1);
+            if(hasAccess){
+                logger.info("Operator " + operatorId + " is doing......");
+                next();
+            }
+        }else{
+            res.end("You have no access!");
         }
-        next();
+        
     }
 };
 
