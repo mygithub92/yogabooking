@@ -100,10 +100,10 @@ var courseInfo = [
                 db.sequelize.query(sql,{type: db.sequelize.QueryTypes.SELECT}).then(function(maxDate){
                     var d = moment(maxDate[0].maxDate);
                     d.add(1,'day');
-                    logger.info('Checking the date of ' + d + '..........');
+                    logger.info('Checking the date of ' + d.toDate() + '..........');
                     courseGenerator(d,1)
                 })
-            },dayInMillisecond/2);
+            },dayInMillisecond/10);
         }else{
             instantiate();
         }

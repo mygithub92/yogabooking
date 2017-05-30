@@ -1,11 +1,14 @@
 const config = require('../config');
 const Sequelize = require('sequelize');
 var logger = require("../utils/logger");
+var winston = require('winston');
 
 var sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
     host: config.db.host,
     port: config.db.port,
     dialect: 'mysql',
+    timezone:'+09:30',
+    logging:winston.info,
 	pool: {
 		max: 5,
 		min: 0,

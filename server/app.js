@@ -38,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse `application/json`
 app.use(bodyParser.json());
 app.use('/static', express.static(path.join(__dirname, 'public')))
-app.use('/', require('./routes'));
 app.use('/yoga/manage/*',db.authenticateUser);
 
 // 打印异常日志
