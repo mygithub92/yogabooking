@@ -74,8 +74,9 @@ var courseInfo = [
             var sql = "SELECT MAX(course_date) as maxDate FROM courses";
             db.sequelize.query(sql,{type: db.sequelize.QueryTypes.SELECT}).then(function(result){
                 var daysNeed = numberDayInFuture;
+                var currentMaxDate = moment();
                 if(result && result.length > 0 && result[0].maxDate){
-                    var currentMaxDate = moment(result[0].maxDate);
+                    currentMaxDate = moment(result[0].maxDate);
                     currentMaxDate.add(1,'day');
                     var now = moment();
                     var daysBetween = currentMaxDate.diff(now,'day');
