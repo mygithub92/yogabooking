@@ -166,11 +166,11 @@ app.get('/yoga/wx/user/details',(req,res) => {
                 })
                 db.course.findAll({
                     where:{id:{$in:courseIds},course_date:{$lt:new Date()}},
-                    order:['course_date','start_time'],
+                    order:[['course_date','DESC']],
                     attributes:['course_date','start_time','end_time'],
                     include:[{model:db.address}],
-                    limit:5}).then(foundPastCourse =>{
-                        result.pastCourse = foundPastCourse;
+                    limit:2}).then(foundPastCourse =>{
+                        result.pastCourse = foundPastCourse.reverse();
                         db.course.findAll({
                             where:{id:{$in:courseIds},course_date:{$gte:new Date()}},
                             order:['course_date','start_time'],
