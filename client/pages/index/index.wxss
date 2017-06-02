@@ -48,6 +48,7 @@
   text-shadow: 3px 2px #404040;
   color: white;
   margin-bottom: 90rpx;
+  font-size: 80%;
 }
 
 .message-item{

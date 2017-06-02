@@ -169,7 +169,7 @@ app.get('/yoga/wx/user/details',(req,res) => {
                     order:['course_date','start_time'],
                     attributes:['course_date','start_time','end_time'],
                     include:[{model:db.address}],
-                    limit:5}).then(foundPastCourse =>{
+                    limit:2}).then(foundPastCourse =>{
                         result.pastCourse = foundPastCourse;
                         db.course.findAll({
                             where:{id:{$in:courseIds},course_date:{$gte:new Date()}},
@@ -202,7 +202,11 @@ app.post('/yoga/manage/payment/update', (req, res) => {
     console.log(req.body.userId);
     console.log(req.body.payment);
     logger.info(" topping up for user " + req.body.userId + " of [amount:" + req.body.payment.amount + ", times:" + req.body.payment.times + "] at " + new Date());
-    db.paymentHistory.create({amount:req.body.payment.amount,userId:req.body.userId,operatorId:req.body.managerId}).then(newPaymentHistory => {
+    db.paymentHistory.create({
+            amount:req.body.payment.amount,
+            receipt:req.body.payment.receipt,
+            userId:req.body.userId,
+            operatorId:req.body.managerId}).then(newPaymentHistory => {
         db.payment.findOne(
             {where:{userId:req.body.userId}}
         ).then(foundPayment =>{

@@ -33,3 +33,13 @@ input {
   font-size: 23px;
   border-radius: 5rpx;
 }
+
+.message-section{
+  margin-right: 40rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size: 70%;
+}

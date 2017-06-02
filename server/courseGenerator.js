@@ -47,17 +47,13 @@ var courseInfo = [
                         var courseStartTime = current.format('YYYY-MM-DD') + ' ' + period.start;
                         promises.push(
                             (function(addressId,coachId,courseStartTime,period){
-                                return function(){
-                                    var fullQuerySql = util.format(querySql,courseStartTime,addressId,coachId);
-                                    db.sequelize.query(fullQuerySql,{type: db.sequelize.QueryTypes.SELECT}).then(function(foundCourse){
-                                        if(foundCourse.length === 0){
-                                            var fullInsertSql = util.format(insertSql,courseStartTime,period.start,period.end,period.spotNumber,coachId,addressId);
-                                            db.sequelize.query(fullInsertSql).then(insertedCouse =>{
-                                                logger.info('Course [' + insertedCouse.id + ', ' + insertedCouse.course_date + '] has been inserted');
-                                            });
-                                        }
-                                    })
-                                }
+                                var fullQuerySql = util.format(querySql,courseStartTime,addressId,coachId);
+                                db.sequelize.query(fullQuerySql,{type: db.sequelize.QueryTypes.SELECT}).then(function(foundCourse){
+                                    if(foundCourse.length === 0){
+                                        var fullInsertSql = util.format(insertSql,courseStartTime,period.start,period.end,period.spotNumber,coachId,addressId);
+                                        db.sequelize.query(fullInsertSql);
+                                    }
+                                })
                         })(courseDetails.address.id,courseDetails.coach.id,courseStartTime,period))
                     }
                 }else{
@@ -85,6 +81,6 @@ var courseInfo = [
                 logger.info('Checking the date of ' + currentMaxDate.toDate() + '..........');
                 courseGenerator(currentMaxDate,daysNeed);
             })
-    },dayInMillisecond/10);
+    },8640000);
   })
 })();

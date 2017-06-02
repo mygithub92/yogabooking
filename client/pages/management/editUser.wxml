@@ -1,27 +1,29 @@
 <view class="container">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="userInfoContent">
+      <view class="message-section">剩余: {{selectedUser.payments[0].times}}次</view>
+
       <view class="userinfo">
         <image class="userinfo-avatar" src="{{selectedUser.avatar_url}}" background-size="cover"></image>
         <text class="userinfo-nickname">{{selectedUser.wechat_name}}</text>
       </view>
     </view>
     <view class="input-section">
-      <view class="label-section">剩余次数</view>
-      <view class="text-area">
-        <input value="{{selectedUser.payments[0].times}}" />
-      </view>
-    </view>
-    <view class="input-section">
-      <view class="label-section">金额</view>
+      <view class="label-section">金额:</view>
       <view class="input-area">
         <input name="amount" type="number" placeholder="$" />
       </view>
     </view>
     <view class="input-section">
-      <view class="label-section">次数</view>
+      <view class="label-section">次数:</view>
       <view class="input-area">
         <input name="times" type="number" placeholder="" />
+      </view>
+    </view>
+    <view class="input-section">
+      <view class="label-section">凭号:</view>
+      <view class="input-area">
+        <input name="receipt" type="text" placeholder="" />
       </view>
     </view>
     <view class="btn-area" hidden="{{hideButtons}}">

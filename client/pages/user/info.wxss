@@ -2,14 +2,14 @@
   background-color: #e88243;
   border: 1px solid #e1c470;
   border-radius: 15rpx;
-  padding: 25rpx;
+  padding: 5rpx 25rpx;
 }
 
 .future-course{
   background-color: #e88243;
   border: 1px solid #e1c470;
   border-radius: 15rpx;
-  padding: 25rpx;
+  padding: 2rpx 25rpx;
 }
 
 .future-course:first-child{
@@ -17,7 +17,13 @@
 }
 
 .message-section{
-  margin-left: 25rpx
+  margin-right: 40rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size: 70%;
 }
 
 .address-text{

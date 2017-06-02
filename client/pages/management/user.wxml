@@ -5,7 +5,7 @@
       </image>
       <text class="nickname-section">{{user.wechat_name}}</text>
       <view class="times-remain">
-      <text class="nickname-section">{{user.payments[0].times}}</text>
+        <text class="nickname-section">剩余{{user.payments[0].times}}次</text>
       </view>
     </view>
   </block>

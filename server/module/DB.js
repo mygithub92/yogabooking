@@ -68,7 +68,7 @@ var db = {
     
     authenticateUser: function(req,res,next){
         var operatorId;
-        if(req.query){
+        if(req.method === 'GET'){
             operatorId = req.query.managerId;
         }else{
             operatorId = req.body.managerId;
