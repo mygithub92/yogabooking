@@ -2,7 +2,7 @@
 <view class="container">
   <view class="main">
     <view class="userInfoContent">
-      <view class="userinfo" bindtap="goUserManagement">
+      <view class="{{userInfo.access_level ? 'operatorUserinfo' : 'userinfo'}}" bindtap="goUserManagement">
         <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </view>

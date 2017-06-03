@@ -13,8 +13,8 @@
           </view>
           <view>
             <view class="HolyGrail-content">
-              <view wx:for="{{period.bookings}}" wx:for-item="spot" class="inline-view" wx:key="{{spot.id}}">
-                <image src="{{spot.user.avatar_url}}" class="userinfo-avatar-item"></image>
+              <view wx:for="{{period.bookings}}" wx:for-item="booking" class="inline-view" wx:key="{{booking.id}}">
+                <image src="{{booking.user.avatar_url}}" class="userinfo-avatar-item" bindlongtap="longTap" data-bookingid="{{booking.id}}" data-periodid="{{period.id}}"></image>
               </view>
             </view>
             <view class="button-group">
@@ -26,10 +26,18 @@
               </view>
             </view>
           </view>
-
         </view>
       </view>
-
     </view>
   </view>
+  <view>
+     <modal title="确定取消？" hidden="{{modalHidden}}" confirm-text="确定" cancel-text="取消" bindconfirm="modalBindaconfirm" bindcancel="modalBindcancel">
+     <view class="modal-content">
+      <image class="userinfo-avatar" src="{{forceCancel.courseInfo.userAvatar}}" background-size="cover"></image>
+        <text class="userinfo-nickname">{{forceCancel.courseInfo.userName}}</text>
+        <text class="userinfo-nickname">{{forceCancel.courseInfo.date}} [{{forceCancel.courseInfo.start}} - {{forceCancel.courseInfo.end}}]</text>
+     </view>
+     </modal>
+   </view>
+
 </view>

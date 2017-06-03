@@ -17,6 +17,18 @@
   justify-content: space-between;
 }
 
+.operatorUserinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: -1rpx -1rpx 0 0;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1rpx solid #333333;
+  border-bottom: 1rpx solid #333333;
+  border-left: 1rpx solid #CCCCCC;
+  border-radius: 10rpx;
+}
+
 .home-icon {
   height: 60rpx;
   width: 60rpx;
@@ -37,7 +49,11 @@
   color: ivory;
   background: rgba(230,180,117,  0.3);
   padding: 20rpx 5rpx 20rpx 5rpx;
-  border-radius: 5rpx;
+  border-radius: 10rpx;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
 }
 
 .message-content {
@@ -46,7 +62,7 @@
   justify-content: flex-end;
   align-items: stretch;
   text-shadow: 3px 2px #404040;
-  color: white;
+  color: ivory;
   margin-bottom: 90rpx;
   font-size: 80%;
 }
@@ -58,7 +74,5 @@
 .times-number {
   display: inline;
   color: red;
-  background: linear-gradient(#e6b475, #ffffff);
-  font-size: 150%;
-  border-radius: 50%;
+  font-size: 110%;
 }

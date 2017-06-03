@@ -14,8 +14,8 @@ var courseInfo = [
         address:{id:1,address:'68 Lascelles Avenue Warradale SA'},
         validDays: [2,4,6],
         validPeriods: {
-            2:[{start:'14:00:00',end:'16:00:00',spotNumber:8},{start:'19:00:00',end:'21:00:00',spotNumber:8}]
-            ,4:[{start:'10:30:00',end:'12:00:00',spotNumber:8},{start:'19:00:00',end:'21:00:00',spotNumber:8}]
+            2:[{start:'14:00:00',end:'16:00:00',spotNumber:8}]
+            ,4:[{start:'10:30:00',end:'12:00:00',spotNumber:8}]
             ,6:[{start:'14:00:00',end:'16:00:00',spotNumber:8},{start:'16:00:00',end:'18:00:00',spotNumber:8}]
         }
     }

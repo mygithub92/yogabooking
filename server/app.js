@@ -94,8 +94,7 @@ app.get('/yoga/wx/course/retrieve',(req,res) => {
         }, {});
 
         var resultMap = Object.keys(group_to_values).map(function(key){
-            var dayNumber = moment(key).day();
-            return {course_date: key + ' ' + Util.days_cn[dayNumber], periods: group_to_values[key]};
+            return {course_date: key, periods: group_to_values[key]};
         });
 
         res.end(JSON.stringify(resultMap));
@@ -166,14 +165,14 @@ app.get('/yoga/wx/user/details',(req,res) => {
                 })
                 db.course.findAll({
                     where:{id:{$in:courseIds},course_date:{$lt:new Date()}},
-                    order:['course_date','start_time'],
+                    order:[['course_date','DESC']],
                     attributes:['course_date','start_time','end_time'],
                     include:[{model:db.address}],
                     limit:2}).then(foundPastCourse =>{
-                        result.pastCourse = foundPastCourse;
+                        result.pastCourse = foundPastCourse.reverse();
                         db.course.findAll({
                             where:{id:{$in:courseIds},course_date:{$gte:new Date()}},
-                            order:['course_date','start_time'],
+                            order:['course_date'],
                             include:[{model:db.address}],
                             attributes:['course_date','start_time','end_time']}).then(foundFutureCourse =>{
                                 result.futureCourse = foundFutureCourse;
@@ -187,7 +186,7 @@ app.get('/yoga/wx/user/details',(req,res) => {
 
 app.get('/yoga/manage/user/retrieve', (req, res) => {
     db.user.findAll({
-        where:{access_level:0},
+        where:{access_level:0,status:0},
         include: [{
             model: db.payment
         }],
@@ -235,6 +234,32 @@ app.post('/yoga/manage/user/update', (req, res) => {
             foundUser.updateAttributes({
                 full_name:req.body.userInfo.full_name
             })
+            res.end(JSON.stringify(foundUser));
+        }else{
+            res.end("Error, no user can be found" + JSON.stringify(req.body.userInfo));
+        }
+    })  
+})
+
+app.get('/yoga/manage/user/delete', (req, res) => {
+    db.user.findOne(
+        {where:{id:req.query.userId}}
+    ).then(foundUser =>{
+        if(foundUser){
+            foundUser.update({
+                status:1
+            }).then(() =>{
+//                db.booking.destroy({where:{userId:foundUser.id}}).then((deletedRecord) =>{
+//                    console.log(deletedRecord);
+//                    if(deletedRecord === 1){
+//                        res.status(200).json({message:"Deleted successfully"});
+//                    }else{
+//                        res.status(404).json({message:"record not found"})
+//                    }
+//                })            
+            })
+
+            
             res.end(JSON.stringify(foundUser));
         }else{
             res.end("Error, no user can be found" + JSON.stringify(req.body.userInfo));

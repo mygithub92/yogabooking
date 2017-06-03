@@ -75,5 +75,5 @@ Page({
     that.setData({
       modalHidden: !that.data.modalHidden
     })
-  },
+  }
 })

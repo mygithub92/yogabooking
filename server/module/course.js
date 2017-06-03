@@ -1,3 +1,6 @@
+var Util = require('../utils/Util');
+var moment = require('moment');
+
 module.exports = function(sequelize, DataTypes) {
   var Course = sequelize.define('course', {
    id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -5,9 +8,11 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         get: function()  {
             if(this.getDataValue('course_date')){
-              return this.getDataValue('course_date').toISOString().slice(0,10);
+                var date = this.getDataValue('course_date').toISOString().slice(0,10);
+                var dayNumber = moment(date).day();
+                return date + ' ' + Util.days_cn[dayNumber];
             }
-        },
+        }
     },
     start_time: {
         type: DataTypes.TIME,

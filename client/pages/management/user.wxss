@@ -7,6 +7,14 @@
   border-radius: 15rpx;
 }
 
+.user-section{
+  display: flex;
+  flex-direction: row;
+  width: 550rpx;
+  overflow-x: hidden;
+  border-right: 2px solid #e1c470;
+}
+
 .userinfo-avatar {
   width: 100rpx;
   height: 100rpx;
