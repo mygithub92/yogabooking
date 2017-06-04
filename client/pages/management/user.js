@@ -26,7 +26,7 @@ Page({
         console.log(res);
         that.data.users.splice(that.data.selectedUser.index, 1)
         that.setData({
-          users: res.data
+          users: that.data.users
         });
       }
     })

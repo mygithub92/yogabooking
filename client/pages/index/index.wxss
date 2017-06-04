@@ -76,3 +76,9 @@
   color: red;
   font-size: 110%;
 }
+
+.block-message{
+  color: ivory;
+  margin-bottom: 150rpx;
+  font-size: 95%;
+}

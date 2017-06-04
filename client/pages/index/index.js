@@ -81,6 +81,7 @@ Page({
           userInfo.id = app.globalData.userInfo.id = res.data.id;
           userInfo.wechat_id = res.data.wechat_id;
           userInfo.access_level = res.data.access_level;
+          userInfo.status = res.data.status;
           that.setData({
             userInfo: userInfo
           });

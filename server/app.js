@@ -249,18 +249,10 @@ app.get('/yoga/manage/user/delete', (req, res) => {
             foundUser.update({
                 status:1
             }).then(() =>{
-//                db.booking.destroy({where:{userId:foundUser.id}}).then((deletedRecord) =>{
-//                    console.log(deletedRecord);
-//                    if(deletedRecord === 1){
-//                        res.status(200).json({message:"Deleted successfully"});
-//                    }else{
-//                        res.status(404).json({message:"record not found"})
-//                    }
-//                })            
+                db.booking.destroy({where:{userId:foundUser.id}}).then((deletedRecord) =>{
+                    res.end(JSON.stringify({message: deletedRecord + " booking records have been deleted for user: [" + foundUser.id + ", " + foundUser.wechat_name + "]"}));
+                })            
             })
-
-            
-            res.end(JSON.stringify(foundUser));
         }else{
             res.end("Error, no user can be found" + JSON.stringify(req.body.userInfo));
         }

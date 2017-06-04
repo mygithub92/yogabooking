@@ -7,21 +7,28 @@
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </view>
     </view>
-    <view class="address-content">
-      <block wx:for="{{addresses}}" wx:key="{{item.id}}">
-        <view bindtap="stepInto" id="{{item.id}}" class="address-item address-icon">
-          <image src="Home-64.png" class="home-icon"></image>
-          <text class="user-motto">{{item.address}}</text>
-        </view>
-      </block>
-    </view>
-    <view class="message-content">
-      <view class="message-item">
-      您的余额还可以预定<view class="times-number">{{paymentNumber}}</view>次瑜伽课
+    <block wx:if="{{userInfo.status === 0}}">
+      <view class="address-content">
+        <block wx:for="{{addresses}}" wx:key="{{item.id}}">
+          <view bindtap="stepInto" id="{{item.id}}" class="address-item address-icon">
+            <image src="Home-64.png" class="home-icon"></image>
+            <text class="user-motto">{{item.address}}</text>
+          </view>
+        </block>
       </view>
-      <view class="message-item">
-      您已经预定了<view class="times-number">{{bookingNumber}}</view>次瑜伽课
-      </view> 
-    </view>
+      <view class="message-content">
+        <view class="message-item">
+          您的余额还可以预定
+          <view class="times-number">{{paymentNumber}}</view> 次瑜伽课
+        </view>
+        <view class="message-item">
+          您已经预定了
+          <view class="times-number">{{bookingNumber}}</view> 次瑜伽课
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="block-message">您已经被屏蔽,如有疑问请联系管理员</view>
+    </block>
   </view>
 </view>
