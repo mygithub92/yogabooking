@@ -5,19 +5,27 @@ Page({
     addressId: {},
     courses: [],
     modalHidden: true,
-    forceCancel:{}
+    forceCancel:{},
+    selectedUser:null,
+    selectedPeriodId:null
   },
 
   nextValidSpot: [],
 
-  bookASport: function (event) {
+  bookASpot: function (event) {
     var that = this;
+    var user = that.data.userInfo;
+    var onbehalf = false;
+    if (event.user) {
+      onbehalf = true;
+      user = event.user;
+    }
     wx.request({
       url: 'https://64078752.jinjinyoga.net/yoga/wx/course/book',
       method: "POST",
       data: {
         courseId: event.target.id,
-        userId: that.data.userInfo.id
+        userId: user.id
       },
       header: {
         'Content-Type': 'application/json'
@@ -26,8 +34,8 @@ Page({
         that.data.courses.forEach(function (course) {
           course.periods.forEach(function (period) {
             if (period.id == event.target.id) {
-              period.booked = true;
-              period.bookings.splice(0, 0, { courseId: period.id, id: res.data, userId: that.data.userInfo.id, user: { wechat_name: that.data.userInfo.nickName, avatar_url: that.data.userInfo.avatarUrl } })
+              period.booked = !onbehalf;
+              period.bookings.splice(0, 0, { courseId: period.id, id: res.data, userId: user.id, user: { wechat_name: user.nickName, avatar_url: user.avatarUrl } })
               period.bookings.splice(period.bookings.length - 1, 1);
               return;
             }
@@ -55,7 +63,7 @@ Page({
     })
   },
 
-  cancelASport: function (event) {
+  cancelASpot: function (event) {
     var that = this;
     var periodId = event.onbehalf ? event.onbehalf.periodid : event.target.id;
     var courseBookingIndex = event.onbehalf ? event.onbehalf.courseBookingIndex : that.findBooking(periodId, -1);
@@ -103,25 +111,40 @@ Page({
 
   longTap: function (e) {
     var that = this;
-    if (that.data.userInfo.access_level && e.target.dataset.bookingid) {
-      var forceCancel = { onbehalf: that.data.forceCancel };
-      var courseBookingIndex = that.findBooking(e.target.dataset.periodid, e.target.dataset.bookingid);
-      forceCancel.onbehalf.courseBookingIndex = courseBookingIndex;
-      var period = that.data.courses[courseBookingIndex.courseIndex].periods[courseBookingIndex.periodIndex];
-      var booking = period.bookings[courseBookingIndex.bookingIndex];
-
-      forceCancel.courseInfo = { 
-        date: period.course_date, 
-        start: period.start_time, 
-        end: period.end_time, 
-        userName: booking.user.wechat_name, 
-        userAvatar : booking.user.avatar_url
-      };
-      that.setData({
-        modalHidden: false,
-        forceCancel: forceCancel
-      })
+    if (that.data.userInfo.access_level) {
+      if (e.target.dataset.bookingid){
+        that.forceCancel(e.target.dataset.periodid, e.target.dataset.bookingid);
+      }else{
+        that.data.selectedPeriodId = e.target.dataset.periodid;
+        that.goSelectUser();
+      }
     }
+  },
+
+  forceCancel: function (periodId, bookingId){
+    var that = this;
+    var forceCancel = { onbehalf: that.data.forceCancel };
+    var courseBookingIndex = that.findBooking(periodId, bookingId);
+    forceCancel.onbehalf.courseBookingIndex = courseBookingIndex;
+    var period = that.data.courses[courseBookingIndex.courseIndex].periods[courseBookingIndex.periodIndex];
+    var booking = period.bookings[courseBookingIndex.bookingIndex];
+    forceCancel.onbehalf.periodid = periodId;
+    forceCancel.onbehalf.bookingid = bookingId;
+    forceCancel.courseInfo = {
+      date: period.course_date,
+      start: period.start_time,
+      end: period.end_time,
+      userName: booking.user.wechat_name,
+      userAvatar: booking.user.avatar_url
+    };
+    that.setData({
+      modalHidden: false,
+      forceCancel: forceCancel
+    })
+  },
+
+  goSelectUser: function(){
+    wx.navigateTo({ url: 'userList'});
   },
 
   modalBindaconfirm: function () {
@@ -130,7 +153,7 @@ Page({
       that.setData({
         modalHidden: true
       })
-      that.cancelASport(that.data.forceCancel);
+      that.cancelASpot(that.data.forceCancel);
     }
   },
 
@@ -223,9 +246,25 @@ Page({
     })
   },
 
+  onShow: function(){
+    var that = this;
+    if(that.data.selectedPeriodId && that.data.selectedUser){
+      var parameter = {
+        target: { id: that.data.selectedPeriodId},
+        user: that.data.selectedUser
+      }
+      parameter.user.nickName = parameter.user.wechat_name;
+      parameter.user.avatarUrl = parameter.user.avatar_url;
 
+      that.bookASpot(parameter);
+      that.data.selectedPeriodId = null;
+      that.data.selectedUser = null;
+    }
+    
+  },
 
   onLoad: function (option) {
+    console.log(option);
     var that = this
     that.setData({
       addressId: option.addressId

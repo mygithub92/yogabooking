@@ -19,10 +19,10 @@
             </view>
             <view class="button-group">
               <view class="button-section" wx:if="{{period.booked}}">
-                <button type="warn" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="cancelASport"> 取消 </button>
+                <button type="warn" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="cancelASpot"> 取消 </button>
               </view>
               <view class="button-section" wx:elif="{{period.valid}}">
-                <button type="primary" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="bookASport"> 预定 </button>
+                <button type="primary" size="default" loading="{{loading}}" id="{{period.id}}" bindtap="bookASpot"> 预定 </button>
               </view>
             </view>
           </view>

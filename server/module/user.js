@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     avatar_url:DataTypes.STRING,
     wechat_id:DataTypes.STRING,
     access_level:{type:DataTypes.INTEGER,defaultValue:0},
-    status:{type:DataTypes.INTEGER,defaultValue:0}// 0: normal, 1: deleted
+    status:{type:DataTypes.INTEGER,defaultValue:0},// 0: normal, 1: deleted
+    needUpdate:{type:DataTypes.INTEGER,defaultValue:0} //0:no need, 1 needed
   });
   return User;
 };

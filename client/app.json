@@ -4,7 +4,8 @@
     "pages/course/course",
     "pages/management/user",
     "pages/management/editUser",
-    "pages/user/info"
+    "pages/user/info",
+    "pages/course/userList"
   ],
   "window": {
     "backgroundTextStyle": "light",

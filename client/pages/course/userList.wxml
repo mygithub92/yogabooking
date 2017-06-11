@@ -1,0 +1,11 @@
+<view class="container">
+  <block wx:for="{{users}}" wx:for-item="user" wx:key="{{user.id}}">
+    <view class="user-item" >
+      <view bindtap="select" class="user-section" id="{{user.id}}">
+        <image src="{{user.avatar_url}}" class="userinfo-avatar">
+        </image>
+        <text class="nickname-section">{{user.wechat_name}}</text>
+      </view>
+    </view>
+  </block>
+</view>

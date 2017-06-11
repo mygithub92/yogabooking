@@ -1,0 +1,23 @@
+.user-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #e88243;
+  border: 1px solid #e1c470;
+  border-radius: 15rpx;
+}
+
+.user-section{
+  display: flex;
+  flex-direction: row;
+}
+
+.userinfo-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
+.nickname-section {
+  margin: 29rpx 12rpx;
+}

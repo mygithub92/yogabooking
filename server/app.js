@@ -49,14 +49,20 @@ app.post('/yoga/wx/user/verify',(req,res) => {
     var userInfo = req.body.userInfo;
     
     util.authencate(config.appId,config.appSecret,userInfo.code,function(data){
-        db.user.findOrCreate({
-            where:{wechat_id: data.openid},
-            defaults:{
+        var defualts = {
                 wechat_name:userInfo.nickName,
                 avatar_url:userInfo.avatarUrl
-            }}).then((result) => {
+            };
+        db.user.findOrCreate({
+            where:{wechat_id: data.openid},
+            defaults:defualts}).then((result) => {
                 if(result[1]){
                    console.log("New user of " + result[0].getDataValue('id') + ", " + result[0].getDataValue('nickName') + " has been created") 
+                }else{
+                    if(result[0].needUpdate){
+                        defualts.needUpdate = 0;
+                        result[0].updateAttributes(defualts)
+                    }
                 }
                 res.end(JSON.stringify(result[0]));
             })
