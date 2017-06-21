@@ -266,8 +266,13 @@ app.get('/yoga/manage/user/delete', (req, res) => {
 })
 
 app.get('/yoga/manage/increase', (req, res) => {
-    var sql = "update courses set spot_number = spot_number + 1 where id = " + req.query.courseId;
-    db.sequelize.query(sql);
+    var inceaseNumber = req.query.num;
+    var courseId = req.query.courseId;
+    if(inceaseNumber && courseId){
+        inceaseNumber = parseInt(inceaseNumber);
+        var sql = "update courses set spot_number = spot_number + " + inceaseNumber + " where id = " + courseId;
+        db.sequelize.query(sql);
+    }
 })
 
 db.sequelize.sync().then(function(){
