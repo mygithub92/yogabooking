@@ -271,7 +271,9 @@ app.get('/yoga/manage/increase', (req, res) => {
     if(inceaseNumber && courseId){
         inceaseNumber = parseInt(inceaseNumber);
         var sql = "update courses set spot_number = spot_number + " + inceaseNumber + " where id = " + courseId;
-        db.sequelize.query(sql);
+        db.sequelize.query(sql).then(function(){
+           res.end("Done");     
+        });
     }
 })
 
