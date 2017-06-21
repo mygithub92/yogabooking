@@ -266,7 +266,7 @@ app.get('/yoga/manage/user/delete', (req, res) => {
 })
 
 app.get('/yoga/manage/increase', (req, res) => {
-    var sql = "update courses set spot_number = spot_number + 1 where id = req.query.courseId";
+    var sql = "update courses set spot_number = spot_number + 1 where id = " + req.query.courseId;
     db.sequelize.query(sql);
 })
 
