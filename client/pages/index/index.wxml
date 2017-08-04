@@ -7,7 +7,10 @@
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </view>
     </view>
-    <block wx:if="{{userInfo.status === 0}}">
+    <block wx:if="{{userInfo.status === 1}}">
+      <view class="block-message">您已经被屏蔽,如有疑问请联系管理员</view>
+    </block>
+    <block wx:else>
       <view class="address-content">
         <block wx:for="{{addresses}}" wx:key="{{item.id}}">
           <view bindtap="stepInto" id="{{item.id}}" class="address-item address-icon">
@@ -26,9 +29,6 @@
           <view class="times-number">{{bookingNumber}}</view> 次瑜伽课
         </view>
       </view>
-    </block>
-    <block wx:else>
-      <view class="block-message">您已经被屏蔽,如有疑问请联系管理员</view>
     </block>
   </view>
 </view>

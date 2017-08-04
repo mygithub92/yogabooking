@@ -17,7 +17,6 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           users: res.data
         });

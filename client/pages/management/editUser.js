@@ -16,11 +16,9 @@ Page({
       var prePage = pages[pages.length - 2];
       that.setData({ selectedUser: prePage.data.selectedUser, managerId: app.globalData.userInfo.id })
     }
-    console.log(that.data)
   },
 
   formSubmit: function (e) {
-    console.log(e);
     this.setData({
       modalHidden: !this.data.modalHidden,
       values: e.detail.value
@@ -46,7 +44,6 @@ Page({
       },
       method: "POST",
       success: function (res) {
-        console.log(res.data);
         if (that.data.selectedUser.payments.length > 0){
           that.data.selectedUser.payments[0].times = res.data.times;
         }else{

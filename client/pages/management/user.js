@@ -23,7 +23,6 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        console.log(res);
         that.data.users.splice(that.data.selectedUser.index, 1)
         that.setData({
           users: that.data.users
@@ -44,7 +43,6 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           users: res.data
         });

@@ -17,14 +17,13 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           addresses: res.data
         });
+        that.retrievePayment();
       }
     })
   },
-
   retrievePayment: function () {
     var that = this;
     wx.request({
@@ -36,13 +35,14 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           bookingNumber: res.data.bookingNumber,
           paymentNumber: res.data.paymentNumber
         });
         app.globalData.bookingNumber = res.data.bookingNumber;
         app.globalData.paymentNumber = res.data.paymentNumber;
+
+        wx.hideLoading();
       }
     })
   },
@@ -62,9 +62,13 @@ Page({
     var that = this;
     that.retrievePayment();
   },
-
+  
   onLoad: function () {
     var that = this
+    wx.showLoading({
+      title: '加载中...',
+      mask:false
+    })
     app.getUserInfo(function (userInfo) {
       wx.request({
         url: 'https://64078752.jinjinyoga.net/yoga/wx/user/verify',
@@ -76,8 +80,6 @@ Page({
           'Content-Type': 'application/json'
         },
         success: function (res) {
-          that.retrieveAddress();
-          console.log(res.data);
           userInfo.id = app.globalData.userInfo.id = res.data.id;
           userInfo.wechat_id = res.data.wechat_id;
           userInfo.access_level = res.data.access_level;
@@ -85,8 +87,8 @@ Page({
           that.setData({
             userInfo: userInfo
           });
-          console.log(that.data.userInfo);
-          that.retrievePayment();
+
+          that.retrieveAddress();
         }
       })
     });

@@ -17,7 +17,6 @@ Page({
         userId: app.globalData.userInfo.id
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           bookingInfo: res.data,
           globalData: app.globalData

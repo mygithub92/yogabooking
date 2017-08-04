@@ -237,7 +237,6 @@ Page({
         'Content-Type': 'application/json'
       },
       success: function (res) {
-        console.log(res.data);
         that.populateSpots(res.data);
         that.setData({
           courses: res.data
@@ -264,7 +263,6 @@ Page({
   },
 
   onLoad: function (option) {
-    console.log(option);
     var that = this
     that.setData({
       addressId: option.addressId

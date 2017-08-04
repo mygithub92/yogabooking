@@ -3,7 +3,7 @@
 .container {
   height: 1100rpx;
   min-height: 1100rpx;
-  background: url("https://64078752.jinjinyoga.net/static/yoga.png");
+  background: url("https://64078752.jinjinyoga.net/static/yoga-inspiration.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -61,7 +61,6 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: stretch;
-  text-shadow: 3px 2px #404040;
   color: ivory;
   margin-bottom: 90rpx;
   font-size: 80%;
