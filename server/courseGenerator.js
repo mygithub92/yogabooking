@@ -4,31 +4,24 @@ const config = require('./config');
 const util = require('util');
 var Promise = require('promise');
 var logger = require("./utils/logger");
-var dayInMillisecond = 86400000;
-var numberDayInFuture = 15;
+var dayInMillisecond = 8640000;
+var numberDayInFuture = 18;
 var querySql = "SELECT id FROM `courses` WHERE `course_date` = '%s' AND addressId = %d and coachId= %d LIMIT 1";
 var insertSql = "INSERT INTO `courses`(`id`, `course_date`, `start_time`, `end_time`, `spot_number`, `createdAt`, `updatedAt`, `coachId`, `addressId`) VALUES (DEFAULT,'%s','%s','%s',%d,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,%d,%d)";
 var courseInfo = [
     {
         coach: {id:1,name:'Jin Jin',level:7},
-        address:{id:1,address:'68 Lascelles Avenue Warradale SA'},
-        validDays: [2,4,6],
+        address:{id:2,address:'10/1 Church Crescent Marion SA'},
+        validDays: [1,2,3,4,5,6],
         validPeriods: {
-            2:[{start:'14:00:00',end:'16:00:00',spotNumber:8}]
-            ,4:[{start:'10:30:00',end:'12:00:00',spotNumber:8}]
-            ,6:[{start:'14:00:00',end:'16:00:00',spotNumber:8},{start:'16:00:00',end:'18:00:00',spotNumber:8}]
+            1:[{start:'18:30:00',end:'20:00:00',spotNumber:4}]
+            ,2:[{start:'9:30:00',end:'11:00:00',spotNumber:4},{start:'13:30:00',end:'15:00:00',spotNumber:4},{start:'15:00:00',end:'16:30:00',spotNumber:4}]
+            ,3:[{start:'18:30:00',end:'20:00:00',spotNumber:4}]
+            ,4:[{start:'9:30:00',end:'11:00:00',spotNumber:4},{start:'13:30:00',end:'15:00:00',spotNumber:4},{start:'15:00:00',end:'16:30:00',spotNumber:4}]
+            ,5:[{start:'18:30:00',end:'20:00:00',spotNumber:4}]
+            ,6:[{start:'14:00:00',end:'15:30:00',spotNumber:4},{start:'16:00:00',end:'17:30:00',spotNumber:4}]
         }
     }
-//    ,{
-//        coach: {id:1,name:'Jin Jin',level:7},
-//        address:{id:2,address:'46 Prescott Terrace, Toorak Gardens SA'},
-//        validDays: [1,3,5],
-//        validPeriods: {
-//            1:[{start:'10:00:00',end:'12:00:00',spotNumber:10},{start:'13:00:00',end:'15:00:00',spotNumber:10}]
-//            ,3:[{start:'10:00:00',end:'12:00:00',spotNumber:10},{start:'14:00:00',end:'16:00:00',spotNumber:10}]
-//            ,5:[{start:'14:00:00',end:'16:00:00',spotNumber:10},{start:'16:00:00',end:'18:00:00',spotNumber:10}]
-//        }
-//    }
 ];
 
 

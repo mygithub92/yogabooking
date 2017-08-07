@@ -71,7 +71,7 @@ app.post('/yoga/wx/user/verify',(req,res) => {
 })
 
 app.get('/yoga/wx/address/retrieve',(req,res) => {
-    db.address.findAll().then(result => {
+    db.address.findAll({where:{id:{$in:[1,2]}}}).then(result => {
         res.end(JSON.stringify(result));
     })
 })
