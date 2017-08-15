@@ -14,11 +14,11 @@ var courseInfo = [
         address:{id:2,address:'10/1 Church Crescent Marion SA'},
         validDays: [1,2,3,4,5,6],
         validPeriods: {
-            1:[{start:'18:30:00',end:'20:00:00',spotNumber:4}]
+            1:[{start:'19:00:00',end:'20:30:00',spotNumber:4}]
             ,2:[{start:'10:00:00',end:'11:30:00',spotNumber:4},{start:'13:30:00',end:'15:00:00',spotNumber:4},{start:'15:00:00',end:'16:30:00',spotNumber:4}]
-            ,3:[{start:'18:30:00',end:'20:00:00',spotNumber:4}]
+            ,3:[{start:'19:00:00',end:'20:30:00',spotNumber:4}]
             ,4:[{start:'10:00:00',end:'11:30:00',spotNumber:4},{start:'13:30:00',end:'15:00:00',spotNumber:4},{start:'15:00:00',end:'16:30:00',spotNumber:4}]
-            ,5:[{start:'18:30:00',end:'20:00:00',spotNumber:4}]
+            ,5:[{start:'19:00:00',end:'20:30:00',spotNumber:4}]
             ,6:[{start:'14:00:00',end:'15:30:00',spotNumber:4},{start:'16:00:00',end:'17:30:00',spotNumber:4}]
         }
     }
