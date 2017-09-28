@@ -12,14 +12,21 @@ var courseInfo = [
     {
         coach: {id:1,name:'Jin Jin',level:7},
         address:{id:2,address:'10/1 Church Crescent Marion SA'},
-        validDays: [1,2,3,4,5,6],
+        validDays: [1,2,4,5,6],
         validPeriods: {
-            1:[{start:'19:00:00',end:'20:30:00',spotNumber:4}]
-            ,2:[{start:'10:00:00',end:'11:30:00',spotNumber:4},{start:'13:30:00',end:'15:00:00',spotNumber:4},{start:'15:00:00',end:'16:30:00',spotNumber:4}]
-            ,3:[{start:'19:00:00',end:'20:30:00',spotNumber:4}]
-            ,4:[{start:'10:00:00',end:'11:30:00',spotNumber:4},{start:'13:30:00',end:'15:00:00',spotNumber:4},{start:'15:00:00',end:'16:30:00',spotNumber:4}]
-            ,5:[{start:'19:00:00',end:'20:30:00',spotNumber:4}]
-            ,6:[{start:'14:00:00',end:'15:30:00',spotNumber:4},{start:'16:00:00',end:'17:30:00',spotNumber:4}]
+            1:[{start:'10:00:00',end:'11:30:00',spotNumber:6},{start:'19:00:00',end:'20:30:00',spotNumber:6}]
+            ,2:[{start:'10:00:00',end:'11:30:00',spotNumber:6},{start:'13:00:00',end:'14:30:00',spotNumber:6},{start:'15:00:00',end:'16:30:00',spotNumber:6}]
+            ,4:[{start:'10:00:00',end:'11:30:00',spotNumber:6},{start:'13:00:00',end:'14:30:00',spotNumber:6},{start:'15:00:00',end:'16:30:00',spotNumber:6}]
+            ,5:[{start:'19:00:00',end:'20:30:00',spotNumber:6}]
+            ,6:[{start:'14:00:00',end:'15:30:00',spotNumber:6},{start:'16:00:00',end:'17:30:00',spotNumber:6}]
+        }
+    },
+    {
+        coach: {id:1,name:'Jin Jin',level:7},
+        address:{id:3,address:'Hallett Cove'},
+        validDays: [5],
+        validPeriods: {
+            5:[{start:'10:00:00',end:'11:30:00',spotNumber:6}]
         }
     }
 ];
@@ -74,6 +81,6 @@ var courseInfo = [
                 logger.info('Checking the date of ' + currentMaxDate.toDate() + '..........');
                 courseGenerator(currentMaxDate,daysNeed);
             })
-    },8640000);
+    },dayInMillisecond);
   })
 })();

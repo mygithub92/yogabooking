@@ -1,0 +1,21 @@
+<html lang="en">
+    <body class="container">
+   
+      <table>
+        <thead>
+            <tr>
+                <th>Start</th><th>Week</th><th>couese</th><th>Amount</th>
+            </tr>
+            <% result.forEach(function(week) { %>
+                <tr>
+                    <td><%= week.start %></td>
+                    <td><%= week.week %></td>
+                    <td><%= week.course_person %></td>
+                    <td><%= week.total %></td>
+                </tr>
+                
+            <% }); %>
+      </table>
+
+    </body>
+    </html>

@@ -71,7 +71,7 @@ app.post('/yoga/wx/user/verify',(req,res) => {
 })
 
 app.get('/yoga/wx/address/retrieve',(req,res) => {
-    db.address.findAll({where:{id:{$in:[2]}}}).then(result => {
+    db.address.findAll({where:{id:{$in:[2,3]}}}).then(result => {
         res.end(JSON.stringify(result));
     })
 })
@@ -275,6 +275,13 @@ app.get('/yoga/manage/increase', (req, res) => {
            res.end("Done");     
         });
     }
+})
+
+app.get('/yoga/report', (req, res) => {
+    var sql = "select * from profit_report";
+    db.sequelize.query(sql, { type: db.sequelize.QueryTypes.SELECT}).then(function(result){
+        res.render('report',{result:result})     
+    });
 })
 
 db.sequelize.sync().then(function(){
