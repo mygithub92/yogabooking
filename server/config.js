@@ -5,10 +5,10 @@ module.exports = {
     appId:'wx7843d4407c191b44',
     appSecret:'87e354b79422eafb08d935934ffe1606',
     db:{
-        host:'10.66.227.99',
+        host:'localhost',
         port:3306,
         name:'yoga_booking',
         username:'root',
-        password:'BBBBBBHHINci1z'
+        password:'jinjinyoga'
     }
 };
