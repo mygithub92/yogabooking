@@ -25,7 +25,8 @@
     "qcloud-weapp-server-sdk": "latest",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
-    "sequelize": "^3.30.4"
+    "sequelize": "^3.30.4",
+    "winston": "^2.4.2"
   },
   "devDependencies": {
     "babel-polyfill": "^6.23.0"
